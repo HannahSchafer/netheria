@@ -1,0 +1,6 @@
+{
+  "type": "object",
+  "properties": {
+      "engine":  { "enum": ["ONNX", "TVM"]}
+  }
+}

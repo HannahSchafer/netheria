@@ -1,0 +1,8 @@
+{
+  "type": "object",
+  "properties": {
+      "engine":         { "enum": ["ONNX", "TVM"] },
+      "num_trials":     { "type": "number" },
+      "runs_per_trial": { "type": "number" }
+  }
+}
