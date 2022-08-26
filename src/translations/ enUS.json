@@ -1,5 +1,9 @@
 {
+  "accelerateTitle": "Accelerate",
+  "benchmarkTitle": "Benchmark",
   "octomize": "Octomize",
   "hardwareTargetsTitle": "Hardware Targets",
-  "totalRuns": "Total Runs"
+  "totalRuns": "Total Runs",
+  "created": "Created",
+  "by": "by"
 }

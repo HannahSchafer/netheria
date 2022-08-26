@@ -1,8 +1,44 @@
 {
-  "type": "object",
-  "properties": {
-      "engine":         { "enum": ["ONNX", "TVM"] },
-      "num_trials":     { "type": "number" },
-      "runs_per_trial": { "type": "number" }
-  }
+  "data": [
+    {
+      "engine": "ONNX",
+      "num_trials": 1,
+      "runs_per_trial": 2
+    },
+    {
+      "engine": "ONNX",
+      "num_trials": 2,
+      "runs_per_trial": 2
+    },
+    {
+      "engine": "ONNX",
+      "num_trials": 2,
+      "runs_per_trial": 3
+    },
+    {
+      "engine": "ONNX",
+      "num_trials": 3,
+      "runs_per_trial": 4
+    },
+    {
+      "engine": "TVM",
+      "num_trials": 1,
+      "runs_per_trial": 2
+    },
+    {
+      "engine": "TVM",
+      "num_trials": 1,
+      "runs_per_trial": 3
+    },
+    {
+      "engine": "TVM",
+      "num_trials": 1,
+      "runs_per_trial": 3
+    },
+    {
+      "engine": "TVM",
+      "num_trials": 4,
+      "runs_per_trial": 3
+    }
+  ]
 }
