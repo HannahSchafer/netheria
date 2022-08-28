@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Dropdown from "../Dropdown/Dropdown";
 import DropdownButton from "../Dropdown/DropdownButton";
 import styled from "styled-components";
@@ -6,6 +6,7 @@ import { useStoreContext } from "../../Store";
 import { DROPDOWN_PANES } from "../../config";
 import Modal from "../Modal/Modal";
 import PaneHeader from "../PaneHeader/PaneHeader";
+import useClickOutside from "../../hooks/useClickOutside";
 
 export const BENCHMARK_OPTS = [
   {
@@ -70,9 +71,11 @@ export function BenchmarkPane() {
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  useClickOutside(wrapperRef, setIsOpen);
 
   return (
-    <div aria-label="benchmark-pane">
+    <div aria-label="benchmark-pane" ref={wrapperRef}>
       <DropdownButton
         displayData={DROPDOWN_PANES[0]}
         hasCheckbox

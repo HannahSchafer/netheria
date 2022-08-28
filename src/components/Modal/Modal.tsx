@@ -1,3 +1,5 @@
+import { useRef } from "react";
+import useClickOutside from "../../hooks/useClickOutside";
 import styled from "styled-components";
 
 interface ModalProps {
