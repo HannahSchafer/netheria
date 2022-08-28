@@ -7,6 +7,7 @@ import { DROPDOWN_PANES } from "../../config";
 import Modal from "../Modal/Modal";
 import PaneHeader from "../PaneHeader/PaneHeader";
 import useClickOutside from "../../hooks/useClickOutside";
+import classNames from "classnames";
 
 export const BENCHMARK_OPTS = [
   {
@@ -75,55 +76,76 @@ export function BenchmarkPane() {
   useClickOutside(wrapperRef, setIsOpen);
 
   return (
-    <div aria-label="benchmark-pane" ref={wrapperRef}>
-      <DropdownButton
-        displayData={DROPDOWN_PANES[0]}
-        hasCheckbox
-        toggleDropdown={toggleDropdown}
-        isOpen={isOpen}
-        isChecked={benchmarkCurrent.runsPerTrial > 0}
+    <div aria-label="benchmark-pane">
+      <Overlay
+        aria-label="overlay"
+        className={classNames({ "is-active": isOpen })}
       />
-      <Modal isOpen={isOpen} styles={{ width: "65%" }}>
-        <ModalContent>
-          <PaneHeader options={BENCHMARK_OPTS} title="benchmarkTitle" />
-          <Rule />
-          <OptionsContainer>
-            {benchmarkDataSelections.map((benchmark: any, i: number) => {
-              return (
-                <OptionsInnerContainer key={i}>
-                  <Spacing>
-                    <Dropdown
-                      displayData={{ title: `${benchmark.engine}` }}
-                      handleSelect={handleSelectEngine}
-                      menuData={engineTypes}
-                      modalWidth={"29%"}
-                    />
-                  </Spacing>
-                  <Spacing>
-                    <Dropdown
-                      displayData={{ title: `${benchmark.numTrials}` }}
-                      handleSelect={handleSelectNumTrials}
-                      menuData={numTrialsOptions}
-                      modalWidth={"29%"}
-                    />
-                  </Spacing>
-                  <Spacing>
-                    <Dropdown
-                      displayData={{ title: `${benchmark.runsPerTrial}` }}
-                      handleSelect={handleSelectRunsPerTrial}
-                      menuData={runsPerTrialsOptions}
-                      modalWidth={"29%"}
-                    />
-                  </Spacing>
-                </OptionsInnerContainer>
-              );
-            })}
-          </OptionsContainer>
-        </ModalContent>
-      </Modal>
+      <div ref={wrapperRef}>
+        <DropdownButton
+          displayData={DROPDOWN_PANES[0]}
+          hasCheckbox
+          toggleDropdown={toggleDropdown}
+          isOpen={isOpen}
+          isChecked={benchmarkCurrent.runsPerTrial > 0}
+        />
+        <Modal isOpen={isOpen} styles={{ width: "65%" }}>
+          <ModalContent>
+            <PaneHeader options={BENCHMARK_OPTS} title="benchmarkTitle" />
+            <Rule />
+            <OptionsContainer>
+              {benchmarkDataSelections.map((benchmark: any, i: number) => {
+                return (
+                  <OptionsInnerContainer key={i}>
+                    <Spacing>
+                      <Dropdown
+                        displayData={{ title: `${benchmark.engine}` }}
+                        handleSelect={handleSelectEngine}
+                        menuData={engineTypes}
+                        modalWidth={"29%"}
+                        stopPropagation
+                      />
+                    </Spacing>
+                    <Spacing>
+                      <Dropdown
+                        displayData={{ title: `${benchmark.numTrials}` }}
+                        handleSelect={handleSelectNumTrials}
+                        menuData={numTrialsOptions}
+                        modalWidth={"29%"}
+                        stopPropagation
+                      />
+                    </Spacing>
+                    <Spacing>
+                      <Dropdown
+                        displayData={{ title: `${benchmark.runsPerTrial}` }}
+                        handleSelect={handleSelectRunsPerTrial}
+                        menuData={runsPerTrialsOptions}
+                        modalWidth={"29%"}
+                      />
+                    </Spacing>
+                  </OptionsInnerContainer>
+                );
+              })}
+            </OptionsContainer>
+          </ModalContent>
+        </Modal>
+      </div>
     </div>
   );
 }
+
+const Overlay = styled.div`
+  &.is-active {
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    opacity: 0.5;
+    background: gray;
+  }
+`;
 
 const ModalContent = styled.div`
   padding: 16px;

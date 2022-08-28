@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import DropdownButton from "../Dropdown/DropdownButton";
 import Dropdown from "../Dropdown/Dropdown";
 import PaneHeader from "../PaneHeader/PaneHeader";
 
 import styled from "styled-components";
+import useClickOutside from "../../hooks/useClickOutside";
 import { useStoreContext, NEW_ACCELERATE_SELECTION } from "../../Store";
 import Modal from "../Modal/Modal";
 import { DROPDOWN_PANES } from "../../config";
+import classNames from "classnames";
 
 export const ACCELERATE_OPTS = [
   {
@@ -27,6 +29,8 @@ export function AcceleratePane() {
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
+  const wrapperRef = useRef<HTMLDivElement>(null);
+  useClickOutside(wrapperRef, setIsOpen);
 
   const handleSelectEngine = (selection: any, index: number) => {
     setAllData(selection, "accelerateSelection");
@@ -35,31 +39,51 @@ export function AcceleratePane() {
 
   return (
     <div aria-label="accelerate-pane">
-      <DropdownButton
-        displayData={DROPDOWN_PANES[1]}
-        hasCheckbox
-        toggleDropdown={toggleDropdown}
-        isOpen={isOpen}
-        isChecked={accelerateSelection !== NEW_ACCELERATE_SELECTION}
+      <Overlay
+        aria-label="overlay"
+        className={classNames({ "is-active": isOpen })}
       />
-      <Modal isOpen={isOpen} styles={{ width: "65%" }}>
-        <ModalContent>
-          <PaneHeader options={ACCELERATE_OPTS} title="accelerateTitle" />
-          <Rule />
-          <OptionsContainer>
-            <Spacing>
-              <Dropdown
-                displayData={{ title: `${accelerateSelection}` }}
-                handleSelect={handleSelectEngine}
-                menuData={accelerateData}
-              />
-            </Spacing>
-          </OptionsContainer>
-        </ModalContent>
-      </Modal>
+      <div ref={wrapperRef}>
+        <DropdownButton
+          displayData={DROPDOWN_PANES[1]}
+          hasCheckbox
+          toggleDropdown={toggleDropdown}
+          isOpen={isOpen}
+          isChecked={accelerateSelection !== NEW_ACCELERATE_SELECTION}
+        />
+        <Modal isOpen={isOpen} styles={{ width: "65%" }}>
+          <ModalContent>
+            <PaneHeader options={ACCELERATE_OPTS} title="accelerateTitle" />
+            <Rule />
+            <OptionsContainer>
+              <Spacing>
+                <Dropdown
+                  displayData={{ title: `${accelerateSelection}` }}
+                  handleSelect={handleSelectEngine}
+                  menuData={accelerateData}
+                  modalWidth={"29%"}
+                />
+              </Spacing>
+            </OptionsContainer>
+          </ModalContent>
+        </Modal>
+      </div>
     </div>
   );
 }
+
+const Overlay = styled.div`
+  &.is-active {
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    opacity: 0.5;
+    background: gray;
+  }
+`;
 
 const ModalContent = styled.div`
   padding: 16px;

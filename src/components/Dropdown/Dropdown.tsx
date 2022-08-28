@@ -11,6 +11,7 @@ interface DropdownProps {
   styles?: any;
   handleSelect?: any;
   modalWidth?: string;
+  stopPropagation?: boolean;
 }
 
 export function Dropdown({
@@ -21,6 +22,7 @@ export function Dropdown({
   isDisabled,
   menuData,
   styles,
+  stopPropagation,
 }: DropdownProps) {
   const buttonRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState(false);
@@ -31,9 +33,12 @@ export function Dropdown({
     setIsOpen(!isOpen);
   };
 
-  const handleSelectMenuItem = (menuItem: any, i: any) => {
+  const handleSelectMenuItem = (event: any, menuItem: any, i: any) => {
     handleSelect(menuItem, i);
     toggleDropdown();
+    if (stopPropagation) {
+      event.stopPropagation();
+    }
   };
 
   return (

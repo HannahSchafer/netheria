@@ -27,7 +27,10 @@ export function DropdownModal({
     >
       {menuData?.map((menuItem: any, i: number) => {
         return (
-          <MenuItem key={i} onClick={() => handleSelectMenuItem(menuItem, i)}>
+          <MenuItem
+            key={i}
+            onClick={(e) => handleSelectMenuItem(e, menuItem, i)}
+          >
             {menuItem}
           </MenuItem>
         );
