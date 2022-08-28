@@ -57,17 +57,9 @@ const reducer = (state: StoreState, action: ActionType): StoreState => {
       };
     }
     case ActionTypes.SET_AGGREGATE_HARDWARE_TARGETS: {
-      const updatedAggregates = {
-        ...state.aggregateHardwareTargets,
-        [action.payload.instance]: action.payload,
-      };
-      const aggregates = action.payload.instance
-        ? updatedAggregates
-        : state.aggregateHardwareTargets;
-
       return {
         ...state,
-        aggregateHardwareTargets: aggregates,
+        aggregateHardwareTargets: action.payload,
       };
     }
     case ActionTypes.SET_TOTAL_RUNS: {
@@ -108,11 +100,16 @@ type ContextStore = {
       data: any,
       propToChange: string,
       currentType: string,
-      selectionsType: string
+      selectionsType: string,
+      selectionIndex?: number
     ) => void;
     setRemoveTarget: (index: number, targetType: string) => void;
-    setHardwareTargetInstance: (data: any, index: number) => void;
-    setAggregateHardwareTargetData: (data: any, obj: any) => void;
+    setHardwareTargetInstance: (
+      data: any,
+      index: number,
+      selectionIndex: number
+    ) => void;
+    setAggregateHardwareTargetData: (prevTarget: any, newTarget?: any) => void;
     setTotalRuns: () => void;
   };
 };
@@ -160,70 +157,122 @@ export function StoreContextProvider({
         });
       },
       setRemoveTarget: (index, targetType) => {
-        console.log("targetType", targetType);
         let newArr = [...state.allData[targetType]];
+        const removedTarget = newArr[index];
+        console.log("removedTargett", removedTarget);
+
         newArr.splice(index, 1);
         dispatch({
           type: ActionTypes.SET_ALL_DATA,
           payload: { data: newArr, key: targetType },
         });
+        store.actions.setAggregateHardwareTargetData(removedTarget, null);
       },
-      updateData: (data, propToChange, currentType, selectionsType) => {
-        console.log("propToChange", propToChange);
-        console.log("state.allData[currentType]", state.allData[currentType]);
+      updateData: (
+        data,
+        propToChange,
+        currentType,
+        selectionsType,
+        selectionIndex = 0
+      ) => {
         const newObj = {
           ...state.allData[currentType],
           [propToChange]: data,
         };
-        console.log("newObj", newObj);
         let newArr = [...state.allData[selectionsType]];
-        const lastSelectionIndex = state.allData[selectionsType].length - 1;
-        newArr[lastSelectionIndex] = newObj;
-        store.actions.setAllData(newArr, selectionsType);
+        const indexOfSelection = selectionIndex ?? 0;
+        newArr[indexOfSelection] = newObj;
         store.actions.setAllData(newObj, currentType);
+        store.actions.setAllData(newArr, selectionsType);
       },
-      setHardwareTargetInstance: (data, index) => {
+      setHardwareTargetInstance: (data, index, selecionIndex) => {
         const instanceObject =
           hardwareTargetApiData[state.allData.hardwareTargetCurrent.provider][
             index
           ];
         const newObj = {
-          ...state.allData.hardwareTargetCurrent,
+          ...state.allData.hardwareTargetSelections[selecionIndex],
           instance: data,
           cpu: instanceObject.cpu,
           memory: instanceObject.memory,
         };
-        let newArr = [...state.allData.hardwareTargetSelections];
-        const lastSelectionIndex =
-          state.allData.hardwareTargetSelections.length - 1;
-        newArr[lastSelectionIndex] = newObj;
-        store.actions.setAllData(newObj, "hardwareTargetCurrent");
-        store.actions.setAllData(newArr, "hardwareTargetSelections");
-        store.actions.setAllData(NEW_SELECTION, "hardwareTargetCurrent");
-        store.actions.setAggregateHardwareTargetData(data, newObj);
-        store.actions.setTotalRuns();
-      },
-      setAggregateHardwareTargetData: (data, obj) => {
-        let instanceAggregate;
-        if (data in state.aggregateHardwareTargets) {
-          const multiplier = state.aggregateHardwareTargets[data].count + 1;
-          const cpu = state.aggregateHardwareTargets[data].cpu;
-          const memory = state.aggregateHardwareTargets[data].memory;
+        const prevTarget =
+          state.allData.hardwareTargetSelections[selecionIndex];
+        const newInstance = newObj;
+        store.actions.setAggregateHardwareTargetData(prevTarget, newInstance);
 
-          instanceAggregate = {
-            ...obj,
-            count: multiplier,
-            cpu: cpu * multiplier,
-            memory: memory * multiplier,
-          };
-        } else {
-          instanceAggregate = { ...obj, count: 1 };
+        let newArr = [...state.allData.hardwareTargetSelections];
+        newArr[selecionIndex] = newObj;
+        store.actions.setAllData(newArr, "hardwareTargetSelections");
+        // store.actions.setTotalRuns();
+      },
+      setAggregateHardwareTargetData: (prevTarget, newTarget) => {
+        if (prevTarget.instance === newTarget?.instance) {
+          return;
+        }
+        // let instanceAggregate;
+        let prevInstanceAggregate =
+          state.aggregateHardwareTargets[prevTarget.instance];
+        // update existing value
+        if (prevTarget.instance in state.aggregateHardwareTargets) {
+          // if prev instance count is > 1, decrease count by 1, and remultiply values,
+          if (prevInstanceAggregate.count > 1) {
+            const multiplier = prevInstanceAggregate.count - 1;
+            prevInstanceAggregate = {
+              ...prevInstanceAggregate,
+              count: multiplier,
+              cpu: prevInstanceAggregate.cpu / prevInstanceAggregate.count,
+              memory:
+                prevInstanceAggregate.memory / prevInstanceAggregate.count,
+            };
+            const aggregatesCopy = state.aggregateHardwareTargets;
+            aggregatesCopy[prevInstanceAggregate.instance] =
+              prevInstanceAggregate;
+            dispatch({
+              type: ActionTypes.SET_AGGREGATE_HARDWARE_TARGETS,
+              payload: aggregatesCopy,
+            });
+          } else {
+            // if prev instance count is 1, remove instance
+            const aggregatesCopy = state.aggregateHardwareTargets;
+            delete aggregatesCopy[prevInstanceAggregate.instance];
+            dispatch({
+              type: ActionTypes.SET_AGGREGATE_HARDWARE_TARGETS,
+              payload: aggregatesCopy,
+            });
+          }
         }
 
-        dispatch({
-          type: ActionTypes.SET_AGGREGATE_HARDWARE_TARGETS,
-          payload: instanceAggregate,
-        });
+        if (!newTarget) {
+          return;
+        }
+
+        // if new instance is in aggregae, increae count by 1, and mulittply
+        if (newTarget.instance in state.aggregateHardwareTargets) {
+          const existingInstance =
+            state.aggregateHardwareTargets[newTarget.instance];
+          const multiplier = existingInstance.count + 1;
+          const updatedInstanceAggregate = {
+            ...existingInstance,
+            count: multiplier,
+            cpu: existingInstance.cpu * multiplier,
+            memory: existingInstance.memory * multiplier,
+          };
+          const aggregatesCopy = state.aggregateHardwareTargets;
+          aggregatesCopy[existingInstance.instance] = updatedInstanceAggregate;
+          dispatch({
+            type: ActionTypes.SET_AGGREGATE_HARDWARE_TARGETS,
+            payload: aggregatesCopy,
+          });
+        } else {
+          // if new instance is not in aggregate, add instance to aggregate
+          const aggregatesCopy = state.aggregateHardwareTargets;
+          aggregatesCopy[newTarget.instance] = { ...newTarget, count: 1 };
+          dispatch({
+            type: ActionTypes.SET_AGGREGATE_HARDWARE_TARGETS,
+            payload: aggregatesCopy,
+          });
+        }
       },
       setTotalRuns: () => {
         dispatch({

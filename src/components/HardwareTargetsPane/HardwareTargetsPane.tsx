@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import Dropdown from "../Dropdown/Dropdown";
+import PaneHeader from "../PaneHeader/PaneHeader";
+import RemoveButton from "../RemoveButton/RemoveButton";
+import { OptionSpacing, Rule } from "../../styles/shared";
+
 import styled from "styled-components";
 import { useStoreContext } from "../../Store";
 import classNames from "classnames";
-import RemoveButton from "../RemoveButton/RemoveButton";
-import PaneHeader from "../PaneHeader/PaneHeader";
 
 export const TARGET_OPTS = [
   {
@@ -35,11 +37,7 @@ const NEW_SELECTION = {
 export function HardwareTargetsPane() {
   const {
     state: {
-      allData: {
-        hardwareTargetCurrent,
-        hardwareTargetSelections,
-        hardwareTargetApiData,
-      },
+      allData: { hardwareTargetSelections, hardwareTargetApiData },
     },
     actions: { updateData, setAllData, setHardwareTargetInstance },
   } = useStoreContext();
@@ -53,12 +51,17 @@ export function HardwareTargetsPane() {
     }
   }, [hardwareTargetSelections, hardwareTargetSelections]);
 
-  const handleSelectProvider = (selection: any, index: number) => {
+  const handleSelectProvider = (
+    selection: any,
+    index: number,
+    selectionIndex: number
+  ) => {
     updateData(
       selection,
       "provider",
       "hardwareTargetCurrent",
-      "hardwareTargetSelections"
+      "hardwareTargetSelections",
+      selectionIndex
     );
     const options = hardwareTargetApiData[selection];
     const instanceOpts = options.map(function (item: { [x: string]: any }) {
@@ -67,8 +70,12 @@ export function HardwareTargetsPane() {
     setInstanceOptions(instanceOpts);
   };
 
-  const handleSelectInstance = (selection: any, index: number) => {
-    setHardwareTargetInstance(selection, index);
+  const handleSelectInstance = (
+    selection: any,
+    menuIndex: number,
+    selectionIndex: number
+  ) => {
+    setHardwareTargetInstance(selection, menuIndex, selectionIndex);
     setCanAddNewTarget(true);
   };
 
@@ -86,6 +93,19 @@ export function HardwareTargetsPane() {
   const engineTypes = hardwareTargetApiData
     ? Object.keys(hardwareTargetApiData)
     : null;
+
+  const handleUpdateInstanceOptions = (selectionIndex: number) => {
+    const selectedTarget = hardwareTargetSelections[selectionIndex];
+    const selectedTargetProvider = selectedTarget.provider;
+    const instanceOptionsForProvider =
+      hardwareTargetApiData[selectedTargetProvider];
+    const instanceOpts = instanceOptionsForProvider.map(function (item: {
+      [x: string]: any;
+    }) {
+      return item["instance"];
+    });
+    setInstanceOptions(instanceOpts);
+  };
 
   return (
     <div aria-label="harware-targets-pane">
@@ -105,37 +125,50 @@ export function HardwareTargetsPane() {
         {hardwareTargetSelections.map((provider: any, i: number) => {
           return (
             <OptionsInnerContainer key={i}>
-              <Spacing className={classNames({ "is-active": true })}>
+              <OptionSpacing className={classNames({ "is-active": true })}>
                 <Dropdown
                   displayData={{ title: `${provider.provider}` }}
                   handleSelect={handleSelectProvider}
+                  selectionIndex={i}
                   menuData={engineTypes}
                   modalWidth={"18%"}
                 />
-              </Spacing>
-              <Spacing
+              </OptionSpacing>
+              <OptionSpacing
                 className={classNames({
-                  "is-active": instanceOptions !== null,
+                  "is-active":
+                    hardwareTargetSelections[i].provider !==
+                    NEW_SELECTION.provider,
                 })}
               >
-                <Dropdown
-                  displayData={{ title: `${provider.instance}` }}
-                  handleSelect={handleSelectInstance}
-                  menuData={instanceOptions}
-                  modalWidth={"18%"}
-                  isDisabled={!instanceOptions}
-                />
-              </Spacing>
+                <div onClick={() => handleUpdateInstanceOptions(i)}>
+                  <Dropdown
+                    displayData={{ title: `${provider.instance}` }}
+                    handleSelect={handleSelectInstance}
+                    selectionIndex={i}
+                    menuData={instanceOptions}
+                    modalWidth={"18%"}
+                    isDisabled={
+                      hardwareTargetSelections[i].provider ===
+                      NEW_SELECTION.provider
+                    }
+                  />
+                </div>
+              </OptionSpacing>
               <StyledCalculations
                 className={classNames({
-                  "is-active": instanceOptions !== null,
+                  "is-active":
+                    hardwareTargetSelections[i].provider !==
+                    NEW_SELECTION.provider,
                 })}
               >
                 {provider.cpu}
               </StyledCalculations>
               <StyledCalculations
                 className={classNames({
-                  "is-active": instanceOptions !== null,
+                  "is-active":
+                    hardwareTargetSelections[i].provider !==
+                    NEW_SELECTION.provider,
                 })}
               >
                 {provider.memory}
@@ -152,16 +185,6 @@ export function HardwareTargetsPane() {
     </div>
   );
 }
-
-const Spacing = styled.div`
-  margin-left: 8px;
-  width: 30%;
-  cursor: pointer;
-
-  &.is-active {
-    color: black;
-  }
-`;
 
 const StyledCalculations = styled.div`
   width: 20%;
@@ -191,42 +214,13 @@ const AddButton = styled.div`
   }
 `;
 
-const HeaderContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  padding-bottom: 16px;
-`;
-
 const OptionsContainer = styled.div`
   color: #7b818a;
-`;
-
-const OptionHeadings = styled.div`
-  color: #7b818a;
-  display: flex;
-  flex-direction: row;
-`;
-
-const OptionHeading = styled.div`
-  width: 25%;
 `;
 
 const OptionsInnerContainer = styled.div`
   display: flex;
   align-items: baseline;
-`;
-
-const Title = styled.div`
-  color: #7b818a;
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 24px;
-`;
-
-const Rule = styled.div`
-  border-bottom: 1px solid #e0e0e0;
-  margin: 10px 0 32px 0;
-  height: 1px;
 `;
 
 export default HardwareTargetsPane;

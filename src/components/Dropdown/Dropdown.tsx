@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import styled from "styled-components";
 import DropdownButton from "./DropdownButton";
 import DropdownModal from "./DropdownModal";
+import useClickOutside from "../../hooks/useClickOutside";
 
 interface DropdownProps {
   displayData?: any;
@@ -12,6 +13,7 @@ interface DropdownProps {
   handleSelect?: any;
   modalWidth?: string;
   stopPropagation?: boolean;
+  selectionIndex?: number;
 }
 
 export function Dropdown({
@@ -23,9 +25,12 @@ export function Dropdown({
   menuData,
   styles,
   stopPropagation,
+  selectionIndex,
 }: DropdownProps) {
   const buttonRef = useRef<HTMLDivElement>(null);
+  const wrapperRef = useRef<HTMLDivElement>(null);
   const [isOpen, setIsOpen] = useState(false);
+  useClickOutside(wrapperRef, setIsOpen);
   const toggleDropdown = () => {
     if (isDisabled) {
       return;
@@ -33,8 +38,12 @@ export function Dropdown({
     setIsOpen(!isOpen);
   };
 
-  const handleSelectMenuItem = (event: any, menuItem: any, i: any) => {
-    handleSelect(menuItem, i);
+  const handleSelectMenuItem = (
+    event: any,
+    menuItem: any,
+    menuItemIndex: any
+  ) => {
+    handleSelect(menuItem, menuItemIndex, selectionIndex);
     toggleDropdown();
     if (stopPropagation) {
       event.stopPropagation();
@@ -42,24 +51,26 @@ export function Dropdown({
   };
 
   return (
-    <DropdownContainer aria-label="dropdown" style={styles}>
-      <div ref={buttonRef}>
-        <DropdownButton
-          displayData={displayData}
-          hasCheckbox={hasCheckbox}
-          isDisabled={isDisabled}
+    <div aria-label="dropdown" ref={wrapperRef}>
+      <DropdownContainer style={styles}>
+        <div ref={buttonRef}>
+          <DropdownButton
+            displayData={displayData}
+            hasCheckbox={hasCheckbox}
+            isDisabled={isDisabled}
+            isOpen={isOpen}
+            toggleDropdown={toggleDropdown}
+          />
+        </div>
+        <DropdownModal
+          buttonRef={buttonRef}
+          handleSelectMenuItem={handleSelectMenuItem}
           isOpen={isOpen}
-          toggleDropdown={toggleDropdown}
+          menuData={menuData}
+          modalWidth={modalWidth}
         />
-      </div>
-      <DropdownModal
-        buttonRef={buttonRef}
-        handleSelectMenuItem={handleSelectMenuItem}
-        isOpen={isOpen}
-        menuData={menuData}
-        modalWidth={modalWidth}
-      />
-    </DropdownContainer>
+      </DropdownContainer>
+    </div>
   );
 }
 

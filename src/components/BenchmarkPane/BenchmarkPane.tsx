@@ -1,15 +1,17 @@
 import { useRef, useState } from "react";
 import Dropdown from "../Dropdown/Dropdown";
 import DropdownButton from "../Dropdown/DropdownButton";
+import Overlay from "../Overlay/Overlay";
+import { OptionSpacing, Rule } from "../../styles/shared";
+
 import styled from "styled-components";
 import { useStoreContext } from "../../Store";
 import { DROPDOWN_PANES } from "../../config";
 import Modal from "../Modal/Modal";
 import PaneHeader from "../PaneHeader/PaneHeader";
 import useClickOutside from "../../hooks/useClickOutside";
-import classNames from "classnames";
 
-export const BENCHMARK_OPTS = [
+const BENCHMARK_OPTS = [
   {
     title: "Engine",
     styles: { width: "30%" },
@@ -77,10 +79,7 @@ export function BenchmarkPane() {
 
   return (
     <div aria-label="benchmark-pane">
-      <Overlay
-        aria-label="overlay"
-        className={classNames({ "is-active": isOpen })}
-      />
+      <Overlay isOpen={isOpen} />
       <div ref={wrapperRef}>
         <DropdownButton
           displayData={DROPDOWN_PANES[0]}
@@ -89,7 +88,7 @@ export function BenchmarkPane() {
           isOpen={isOpen}
           isChecked={benchmarkCurrent.runsPerTrial > 0}
         />
-        <Modal isOpen={isOpen} styles={{ width: "65%" }}>
+        <Modal isOpen={isOpen} styles={{ width: "63.5%" }}>
           <ModalContent>
             <PaneHeader options={BENCHMARK_OPTS} title="benchmarkTitle" />
             <Rule />
@@ -97,7 +96,7 @@ export function BenchmarkPane() {
               {benchmarkDataSelections.map((benchmark: any, i: number) => {
                 return (
                   <OptionsInnerContainer key={i}>
-                    <Spacing>
+                    <OptionSpacing>
                       <Dropdown
                         displayData={{ title: `${benchmark.engine}` }}
                         handleSelect={handleSelectEngine}
@@ -105,8 +104,8 @@ export function BenchmarkPane() {
                         modalWidth={"29%"}
                         stopPropagation
                       />
-                    </Spacing>
-                    <Spacing>
+                    </OptionSpacing>
+                    <OptionSpacing>
                       <Dropdown
                         displayData={{ title: `${benchmark.numTrials}` }}
                         handleSelect={handleSelectNumTrials}
@@ -114,15 +113,15 @@ export function BenchmarkPane() {
                         modalWidth={"29%"}
                         stopPropagation
                       />
-                    </Spacing>
-                    <Spacing>
+                    </OptionSpacing>
+                    <OptionSpacing>
                       <Dropdown
                         displayData={{ title: `${benchmark.runsPerTrial}` }}
                         handleSelect={handleSelectRunsPerTrial}
                         menuData={runsPerTrialsOptions}
                         modalWidth={"29%"}
                       />
-                    </Spacing>
+                    </OptionSpacing>
                   </OptionsInnerContainer>
                 );
               })}
@@ -134,31 +133,8 @@ export function BenchmarkPane() {
   );
 }
 
-const Overlay = styled.div`
-  &.is-active {
-    position: absolute;
-    bottom: 0;
-    top: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    opacity: 0.5;
-    background: gray;
-  }
-`;
-
 const ModalContent = styled.div`
   padding: 16px;
-`;
-
-const Spacing = styled.div`
-  margin-left: 8px;
-  width: 30%;
-  cursor: pointer;
-
-  &.is-active {
-    color: black;
-  }
 `;
 
 const OptionsContainer = styled.div`
@@ -168,12 +144,6 @@ const OptionsContainer = styled.div`
 const OptionsInnerContainer = styled.div`
   display: flex;
   align-items: baseline;
-`;
-
-const Rule = styled.div`
-  border-bottom: 1px solid #e0e0e0;
-  margin: 10px 0 32px 0;
-  height: 1px;
 `;
 
 export default BenchmarkPane;
