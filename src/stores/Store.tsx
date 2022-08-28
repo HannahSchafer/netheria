@@ -63,10 +63,9 @@ const reducer = (state: StoreState, action: ActionType): StoreState => {
       };
     }
     case ActionTypes.SET_TOTAL_RUNS: {
-      const total = (state.totalRuns += 1);
       return {
         ...state,
-        totalRuns: total,
+        totalRuns: action.payload,
       };
     }
     default:
@@ -110,7 +109,7 @@ type ContextStore = {
       selectionIndex: number
     ) => void;
     setAggregateHardwareTargetData: (prevTarget: any, newTarget?: any) => void;
-    setTotalRuns: () => void;
+    setTotalRuns: (totalRuns: number) => void;
   };
 };
 
@@ -159,7 +158,6 @@ export function StoreContextProvider({
       setRemoveTarget: (index, targetType) => {
         let newArr = [...state.allData[targetType]];
         const removedTarget = newArr[index];
-        console.log("removedTargett", removedTarget);
 
         newArr.splice(index, 1);
         dispatch({
@@ -204,7 +202,6 @@ export function StoreContextProvider({
         let newArr = [...state.allData.hardwareTargetSelections];
         newArr[selecionIndex] = newObj;
         store.actions.setAllData(newArr, "hardwareTargetSelections");
-        // store.actions.setTotalRuns();
       },
       setAggregateHardwareTargetData: (prevTarget, newTarget) => {
         if (prevTarget.instance === newTarget?.instance) {
@@ -232,6 +229,8 @@ export function StoreContextProvider({
               type: ActionTypes.SET_AGGREGATE_HARDWARE_TARGETS,
               payload: aggregatesCopy,
             });
+            const newTotalRuns = (state.totalRuns -= 1);
+            store.actions.setTotalRuns(newTotalRuns);
           } else {
             // if prev instance count is 1, remove instance
             const aggregatesCopy = state.aggregateHardwareTargets;
@@ -240,13 +239,14 @@ export function StoreContextProvider({
               type: ActionTypes.SET_AGGREGATE_HARDWARE_TARGETS,
               payload: aggregatesCopy,
             });
+            const newTotalRuns = (state.totalRuns -= 1);
+            store.actions.setTotalRuns(newTotalRuns);
           }
         }
 
         if (!newTarget) {
           return;
         }
-
         // if new instance is in aggregae, increae count by 1, and mulittply
         if (newTarget.instance in state.aggregateHardwareTargets) {
           const existingInstance =
@@ -264,6 +264,8 @@ export function StoreContextProvider({
             type: ActionTypes.SET_AGGREGATE_HARDWARE_TARGETS,
             payload: aggregatesCopy,
           });
+          const newTotalRuns = (state.totalRuns += 1);
+          store.actions.setTotalRuns(newTotalRuns);
         } else {
           // if new instance is not in aggregate, add instance to aggregate
           const aggregatesCopy = state.aggregateHardwareTargets;
@@ -272,11 +274,14 @@ export function StoreContextProvider({
             type: ActionTypes.SET_AGGREGATE_HARDWARE_TARGETS,
             payload: aggregatesCopy,
           });
+          const newTotalRuns = (state.totalRuns += 1);
+          store.actions.setTotalRuns(newTotalRuns);
         }
       },
-      setTotalRuns: () => {
+      setTotalRuns: (totalRuns: number) => {
         dispatch({
           type: ActionTypes.SET_TOTAL_RUNS,
+          payload: totalRuns,
         });
       },
     },

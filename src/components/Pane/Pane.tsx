@@ -1,13 +1,12 @@
 import styled from "styled-components";
+import { PaneStyles } from "../../types/types";
 
 interface PaneProps {
-  height?: number;
-  title?: string;
   children?: any;
-  styles?: any;
+  styles?: PaneStyles;
 }
 
-export function Pane({ children, height, title, styles }: PaneProps) {
+export function Pane({ children, styles }: PaneProps) {
   return (
     <StyledPane aria-label="pane" style={styles}>
       {children}

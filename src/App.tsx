@@ -6,7 +6,7 @@ import {
   getTargetData,
 } from "./Api";
 import Sidebar from "./components/Sidebar/Sidebar";
-import { StoreContextProvider } from "./Store";
+import { StoreContextProvider } from "./stores/Store";
 import TotalRunsPane from "./components/TotalRunsPane/TotalRunsPane";
 import WorkflowPane from "./components/WorkflowPane/WorkflowPane";
 import styled from "styled-components";

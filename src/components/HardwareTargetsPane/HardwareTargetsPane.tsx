@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
+import Button from "../Button/Button";
 import Dropdown from "../Dropdown/Dropdown";
 import PaneHeader from "../PaneHeader/PaneHeader";
 import RemoveButton from "../RemoveButton/RemoveButton";
 import { OptionSpacing, Rule } from "../../styles/shared";
 
 import styled from "styled-components";
-import { useStoreContext } from "../../Store";
+import { useStoreContext } from "../../stores/Store";
 import classNames from "classnames";
 
 export const TARGET_OPTS = [
@@ -39,7 +40,12 @@ export function HardwareTargetsPane() {
     state: {
       allData: { hardwareTargetSelections, hardwareTargetApiData },
     },
-    actions: { updateData, setAllData, setHardwareTargetInstance },
+    actions: {
+      updateData,
+      setAllData,
+      setHardwareTargetInstance,
+      setAggregateHardwareTargetData,
+    },
   } = useStoreContext();
 
   const [instanceOptions, setInstanceOptions] = useState(null);
@@ -63,6 +69,8 @@ export function HardwareTargetsPane() {
       "hardwareTargetSelections",
       selectionIndex
     );
+    const selected = hardwareTargetSelections[selectionIndex];
+    setAggregateHardwareTargetData(selected, null);
     const options = hardwareTargetApiData[selection];
     const instanceOpts = options.map(function (item: { [x: string]: any }) {
       return item["instance"];
@@ -110,15 +118,14 @@ export function HardwareTargetsPane() {
   return (
     <div aria-label="harware-targets-pane">
       <PaneHeader options={TARGET_OPTS} title="hardwareTargetsTitle">
-        <AddButton
-          onClick={() => handleAddTarget()}
-          role="button"
-          className={classNames({
-            "is-active": canAddNewTarget,
-          })}
+        <Button
+          color={"#0180ff"}
+          onClick={handleAddTarget}
+          padding={"0 16px"}
+          isActive={canAddNewTarget}
         >
           Add
-        </AddButton>
+        </Button>
       </PaneHeader>
       <Rule />
       <OptionsContainer>

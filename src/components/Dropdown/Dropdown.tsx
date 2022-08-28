@@ -1,11 +1,11 @@
 import { useRef, useState } from "react";
-import styled from "styled-components";
 import DropdownButton from "./DropdownButton";
 import DropdownModal from "./DropdownModal";
 import useClickOutside from "../../hooks/useClickOutside";
+import { DisplayDdata } from "../../types/types";
 
 interface DropdownProps {
-  displayData?: any;
+  displayData?: DisplayDdata;
   hasCheckbox?: boolean;
   isDisabled?: boolean;
   menuData?: any;
@@ -52,7 +52,7 @@ export function Dropdown({
 
   return (
     <div aria-label="dropdown" ref={wrapperRef}>
-      <DropdownContainer style={styles}>
+      <div style={styles}>
         <div ref={buttonRef}>
           <DropdownButton
             displayData={displayData}
@@ -69,13 +69,9 @@ export function Dropdown({
           menuData={menuData}
           modalWidth={modalWidth}
         />
-      </DropdownContainer>
+      </div>
     </div>
   );
 }
-
-const DropdownContainer = styled.div`
-  padding-bottom: 16px;
-`;
 
 export default Dropdown;

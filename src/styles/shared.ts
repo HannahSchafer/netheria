@@ -6,9 +6,11 @@ export const Rule = styled.div`
   height: 1px;
 `;
 
-export const OptionSpacing = styled.div`
+export const OptionSpacing = styled.div.attrs(
+  (props: { width: string }) => props
+)`
   margin-left: 8px;
-  width: 30%;
+  width: ${(props) => (props.width ? props.width : "30%")};
   cursor: pointer;
 
   &.is-active {

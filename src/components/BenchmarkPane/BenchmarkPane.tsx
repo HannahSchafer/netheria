@@ -1,16 +1,18 @@
 import { useRef, useState } from "react";
+import Button from "../Button/Button";
 import Dropdown from "../Dropdown/Dropdown";
 import DropdownButton from "../Dropdown/DropdownButton";
 import Overlay from "../Overlay/Overlay";
 import { OptionSpacing, Rule } from "../../styles/shared";
 
 import styled from "styled-components";
-import { useStoreContext } from "../../Store";
+import { useStoreContext } from "../../stores/Store";
 import { DROPDOWN_PANES } from "../../config";
 import Modal from "../Modal/Modal";
 import PaneHeader from "../PaneHeader/PaneHeader";
 import useClickOutside from "../../hooks/useClickOutside";
 
+const OPTION_SPACE_WIDTH = "25%";
 const BENCHMARK_OPTS = [
   {
     title: "Engine",
@@ -36,6 +38,9 @@ export function BenchmarkPane() {
 
   const [numTrialsOptions, setNumTrialsOptions] = useState(null);
   const [runsPerTrialsOptions, setRunsPerTrialsOptions] = useState(null);
+  const [isChecked, setIsChecked] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [canSave, setCanSave] = useState(false);
 
   const handleSelectEngine = (selection: any) => {
     updateData(
@@ -66,16 +71,25 @@ export function BenchmarkPane() {
       "benchmarkCurrent",
       "benchmarkDataSelections"
     );
+    setCanSave(true);
   };
 
   const engineTypes = benchmarkData ? Object.keys(benchmarkData) : null;
 
-  const [isOpen, setIsOpen] = useState(false);
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
   const wrapperRef = useRef<HTMLDivElement>(null);
   useClickOutside(wrapperRef, setIsOpen);
+
+  const handleSave = () => {
+    if (benchmarkCurrent.runsPerTrial === 0) {
+      return;
+    }
+    // TODO: api call to persistently save option
+    setIsOpen(false);
+    setIsChecked(true);
+  };
 
   return (
     <div aria-label="benchmark-pane">
@@ -86,7 +100,7 @@ export function BenchmarkPane() {
           hasCheckbox
           toggleDropdown={toggleDropdown}
           isOpen={isOpen}
-          isChecked={benchmarkCurrent.runsPerTrial > 0}
+          isChecked={isChecked}
         />
         <Modal isOpen={isOpen} styles={{ width: "63.5%" }}>
           <ModalContent>
@@ -96,7 +110,7 @@ export function BenchmarkPane() {
               {benchmarkDataSelections.map((benchmark: any, i: number) => {
                 return (
                   <OptionsInnerContainer key={i}>
-                    <OptionSpacing>
+                    <OptionSpacing width={OPTION_SPACE_WIDTH}>
                       <Dropdown
                         displayData={{ title: `${benchmark.engine}` }}
                         handleSelect={handleSelectEngine}
@@ -105,7 +119,7 @@ export function BenchmarkPane() {
                         stopPropagation
                       />
                     </OptionSpacing>
-                    <OptionSpacing>
+                    <OptionSpacing width={OPTION_SPACE_WIDTH}>
                       <Dropdown
                         displayData={{ title: `${benchmark.numTrials}` }}
                         handleSelect={handleSelectNumTrials}
@@ -114,14 +128,22 @@ export function BenchmarkPane() {
                         stopPropagation
                       />
                     </OptionSpacing>
-                    <OptionSpacing>
+                    <OptionSpacing width={OPTION_SPACE_WIDTH}>
                       <Dropdown
                         displayData={{ title: `${benchmark.runsPerTrial}` }}
                         handleSelect={handleSelectRunsPerTrial}
                         menuData={runsPerTrialsOptions}
                         modalWidth={"29%"}
+                        stopPropagation
                       />
                     </OptionSpacing>
+                    <Button
+                      color={"#0180ff"}
+                      onClick={handleSave}
+                      isActive={canSave}
+                    >
+                      Save
+                    </Button>
                   </OptionsInnerContainer>
                 );
               })}
@@ -144,6 +166,7 @@ const OptionsContainer = styled.div`
 const OptionsInnerContainer = styled.div`
   display: flex;
   align-items: baseline;
+  justify-content: space-between;
 `;
 
 export default BenchmarkPane;

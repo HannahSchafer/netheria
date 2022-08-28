@@ -1,9 +1,10 @@
 import { Icon } from "semantic-ui-react";
 import styled from "styled-components";
 import classNames from "classnames";
+import { DisplayDdata } from "../../types/types";
 
 interface DropdownButtonProps {
-  displayData?: any;
+  displayData?: DisplayDdata;
   hasCheckbox?: boolean;
   toggleDropdown: () => void;
   isChecked?: boolean;
@@ -19,6 +20,10 @@ export function DropdownButton({
   isDisabled,
   toggleDropdown,
 }: DropdownButtonProps) {
+  const handleClickCheckmark = (event: any) => {
+    event.stopPropagation();
+  };
+
   return (
     <DropdownButtonContainer
       aria-label="dropdown-button"
@@ -39,7 +44,7 @@ export function DropdownButton({
                 <input
                   type="checkbox"
                   checked={isChecked}
-                  onChange={() => console.log("ch")}
+                  onChange={(e) => handleClickCheckmark(e)}
                 />{" "}
               </Checkbox>
             )}

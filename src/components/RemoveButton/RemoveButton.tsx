@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import classNames from "classnames";
 import close from "../../assets/close.png";
-import { useStoreContext } from "../../Store";
+import { useStoreContext } from "../../stores/Store";
 
 interface RemoveButtonProps {
   isActive?: boolean;

@@ -1,6 +1,6 @@
 import Pane from "../Pane/Pane";
 import getString from "../../utils/getString";
-import { useStoreContext } from "../../Store";
+import { useStoreContext } from "../../stores/Store";
 import styled from "styled-components";
 import classNames from "classnames";
 

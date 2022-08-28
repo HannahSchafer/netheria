@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import Button from "../Button/Button";
 import DropdownButton from "../Dropdown/DropdownButton";
 import Dropdown from "../Dropdown/Dropdown";
 import Overlay from "../Overlay/Overlay";
@@ -7,7 +8,7 @@ import { OptionSpacing, Rule } from "../../styles/shared";
 
 import styled from "styled-components";
 import useClickOutside from "../../hooks/useClickOutside";
-import { useStoreContext, NEW_ACCELERATE_SELECTION } from "../../Store";
+import { useStoreContext, NEW_ACCELERATE_SELECTION } from "../../stores/Store";
 import Modal from "../Modal/Modal";
 import { DROPDOWN_PANES } from "../../config";
 
@@ -27,6 +28,9 @@ export function AcceleratePane() {
   } = useStoreContext();
 
   const [isOpen, setIsOpen] = useState(false);
+  const [canSave, setCanSave] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
+
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
@@ -35,7 +39,16 @@ export function AcceleratePane() {
 
   const handleSelectEngine = (selection: any, index: number) => {
     setAllData(selection, "accelerateSelection");
-    toggleDropdown();
+    setCanSave(true);
+  };
+
+  const handleSave = () => {
+    if (accelerateSelection === NEW_ACCELERATE_SELECTION) {
+      return;
+    }
+    // TODO: api call to persistently save option
+    setIsOpen(false);
+    setIsChecked(true);
   };
 
   return (
@@ -47,7 +60,7 @@ export function AcceleratePane() {
           hasCheckbox
           toggleDropdown={toggleDropdown}
           isOpen={isOpen}
-          isChecked={accelerateSelection !== NEW_ACCELERATE_SELECTION}
+          isChecked={isChecked}
         />
         <Modal isOpen={isOpen} styles={{ width: "63.5%" }}>
           <ModalContent>
@@ -60,8 +73,12 @@ export function AcceleratePane() {
                   handleSelect={handleSelectEngine}
                   menuData={accelerateData}
                   modalWidth={"29%"}
+                  stopPropagation
                 />
               </OptionSpacing>
+              <Button color={"#0180ff"} onClick={handleSave} isActive={canSave}>
+                Save
+              </Button>
             </OptionsContainer>
           </ModalContent>
         </Modal>
@@ -76,6 +93,8 @@ const ModalContent = styled.div`
 
 const OptionsContainer = styled.div`
   color: #7b818a;
+  display: flex;
+  justify-content: space-between;
 `;
 
 export default AcceleratePane;

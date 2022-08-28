@@ -1,7 +1,7 @@
 import getString from "../../utils/getString";
 import moment from "moment";
 import styled from "styled-components";
-import { useStoreContext } from "../../Store";
+import { useStoreContext } from "../../stores/Store";
 
 interface EntityHeaderProps {}
 

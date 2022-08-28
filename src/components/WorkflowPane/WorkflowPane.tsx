@@ -3,7 +3,7 @@ import BenchmarkPane from "../BenchmarkPane/BenchmarkPane";
 import AcceleratePane from "../AcceleratePane/AcceleratePane";
 import Pane from "../Pane/Pane";
 import getString from "../../utils/getString";
-import { useStoreContext } from "../../Store";
+import { useStoreContext } from "../../stores/Store";
 import styled from "styled-components";
 
 interface WorkflowPaneProps {}
