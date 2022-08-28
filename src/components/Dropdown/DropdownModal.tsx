@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 interface DropdownModalProps {
   buttonRef: any;
-  menuData?: any;
+  menuData: string[] | number[];
   handleSelectMenuItem?: any;
   isOpen: boolean;
   modalWidth?: string;
@@ -25,7 +25,7 @@ export function DropdownModal({
       aria-label="dropdown-modal"
       style={{ width: `${modalWidth}` }}
     >
-      {menuData?.map((menuItem: any, i: number) => {
+      {menuData.map((menuItem: string | number, i: number) => {
         return (
           <MenuItem
             key={i}

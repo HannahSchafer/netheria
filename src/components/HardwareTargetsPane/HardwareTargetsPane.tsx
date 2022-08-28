@@ -48,7 +48,7 @@ export function HardwareTargetsPane() {
     },
   } = useStoreContext();
 
-  const [instanceOptions, setInstanceOptions] = useState(null);
+  const [instanceOptions, setInstanceOptions] = useState([]);
   const [canAddNewTarget, setCanAddNewTarget] = useState(false);
 
   useEffect(() => {
@@ -98,9 +98,7 @@ export function HardwareTargetsPane() {
     );
   };
 
-  const engineTypes = hardwareTargetApiData
-    ? Object.keys(hardwareTargetApiData)
-    : null;
+  const engineTypes = Object.keys(hardwareTargetApiData);
 
   const handleUpdateInstanceOptions = (selectionIndex: number) => {
     const selectedTarget = hardwareTargetSelections[selectionIndex];
@@ -203,26 +201,11 @@ const StyledCalculations = styled.div`
   }
 `;
 
-const AddButton = styled.div`
-  color: white;
-  background-color: #7b818a;
-  border-radius: 4px;
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
-  display: flex;
-  padding: 0px 16px;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  cursor: not-allowed;
-
-  &.is-active {
-    background-color: #0180ff;
-    cursor: pointer;
-  }
-`;
-
 const OptionsContainer = styled.div`
   color: #7b818a;
+  max-height: 170px;
+  overflow: auto;
+  scrollbar-width: thin;
 `;
 
 const OptionsInnerContainer = styled.div`

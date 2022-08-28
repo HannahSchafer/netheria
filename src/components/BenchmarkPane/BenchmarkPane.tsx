@@ -4,6 +4,7 @@ import Dropdown from "../Dropdown/Dropdown";
 import DropdownButton from "../Dropdown/DropdownButton";
 import Overlay from "../Overlay/Overlay";
 import { OptionSpacing, Rule } from "../../styles/shared";
+import { Engine, IBenchmark } from "../../types/types";
 
 import styled from "styled-components";
 import { useStoreContext, NEW_BENCHMARK_SELECTION } from "../../stores/Store";
@@ -36,13 +37,13 @@ export function BenchmarkPane() {
     actions: { updateData },
   } = useStoreContext();
 
-  const [numTrialsOptions, setNumTrialsOptions] = useState(null);
-  const [runsPerTrialsOptions, setRunsPerTrialsOptions] = useState(null);
+  const [numTrialsOptions, setNumTrialsOptions] = useState([]);
+  const [runsPerTrialsOptions, setRunsPerTrialsOptions] = useState([]);
   const [isChecked, setIsChecked] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [canSave, setCanSave] = useState(false);
 
-  const handleSelectEngine = (selection: any) => {
+  const handleSelectEngine = (selection: Engine) => {
     console.log("benchmarkCurrent", benchmarkCurrent);
     console.log("benchmarkDataSelections", benchmarkDataSelections);
     if (benchmarkCurrent.engine !== NEW_BENCHMARK_SELECTION.engine) {
@@ -60,7 +61,7 @@ export function BenchmarkPane() {
     setNumTrialsOptions(trialOptions);
   };
 
-  const handleSelectNumTrials = (selection: any, index?: number) => {
+  const handleSelectNumTrials = (selection: number) => {
     updateData(
       selection,
       "numTrials",
@@ -71,7 +72,7 @@ export function BenchmarkPane() {
     setRunsPerTrialsOptions(optsArray);
   };
 
-  const handleSelectRunsPerTrial = (selection: any, index?: number) => {
+  const handleSelectRunsPerTrial = (selection: number) => {
     updateData(
       selection,
       "runsPerTrial",
@@ -81,7 +82,7 @@ export function BenchmarkPane() {
     setCanSave(true);
   };
 
-  const engineTypes = benchmarkData ? Object.keys(benchmarkData) : null;
+  const engineTypes = Object.keys(benchmarkData);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -114,46 +115,48 @@ export function BenchmarkPane() {
             <PaneHeader options={BENCHMARK_OPTS} title="benchmarkTitle" />
             <Rule />
             <OptionsContainer>
-              {benchmarkDataSelections.map((benchmark: any, i: number) => {
-                return (
-                  <OptionsInnerContainer key={i}>
-                    <OptionSpacing width={OPTION_SPACE_WIDTH}>
-                      <Dropdown
-                        displayData={{ title: `${benchmark.engine}` }}
-                        handleSelect={handleSelectEngine}
-                        menuData={engineTypes}
-                        modalWidth={"29%"}
-                        stopPropagation
-                      />
-                    </OptionSpacing>
-                    <OptionSpacing width={OPTION_SPACE_WIDTH}>
-                      <Dropdown
-                        displayData={{ title: `${benchmark.numTrials}` }}
-                        handleSelect={handleSelectNumTrials}
-                        menuData={numTrialsOptions}
-                        modalWidth={"29%"}
-                        stopPropagation
-                      />
-                    </OptionSpacing>
-                    <OptionSpacing width={OPTION_SPACE_WIDTH}>
-                      <Dropdown
-                        displayData={{ title: `${benchmark.runsPerTrial}` }}
-                        handleSelect={handleSelectRunsPerTrial}
-                        menuData={runsPerTrialsOptions}
-                        modalWidth={"29%"}
-                        stopPropagation
-                      />
-                    </OptionSpacing>
-                    <Button
-                      color={"#0180ff"}
-                      onClick={handleSave}
-                      isActive={canSave}
-                    >
-                      Save
-                    </Button>
-                  </OptionsInnerContainer>
-                );
-              })}
+              {benchmarkDataSelections.map(
+                (benchmark: IBenchmark, i: number) => {
+                  return (
+                    <OptionsInnerContainer key={i}>
+                      <OptionSpacing width={OPTION_SPACE_WIDTH}>
+                        <Dropdown
+                          displayData={{ title: `${benchmark.engine}` }}
+                          handleSelect={handleSelectEngine}
+                          menuData={engineTypes}
+                          modalWidth={"29%"}
+                          stopPropagation
+                        />
+                      </OptionSpacing>
+                      <OptionSpacing width={OPTION_SPACE_WIDTH}>
+                        <Dropdown
+                          displayData={{ title: `${benchmark.numTrials}` }}
+                          handleSelect={handleSelectNumTrials}
+                          menuData={numTrialsOptions}
+                          modalWidth={"29%"}
+                          stopPropagation
+                        />
+                      </OptionSpacing>
+                      <OptionSpacing width={OPTION_SPACE_WIDTH}>
+                        <Dropdown
+                          displayData={{ title: `${benchmark.runsPerTrial}` }}
+                          handleSelect={handleSelectRunsPerTrial}
+                          menuData={runsPerTrialsOptions}
+                          modalWidth={"29%"}
+                          stopPropagation
+                        />
+                      </OptionSpacing>
+                      <Button
+                        color={"#0180ff"}
+                        onClick={handleSave}
+                        isActive={canSave}
+                      >
+                        Save
+                      </Button>
+                    </OptionsInnerContainer>
+                  );
+                }
+              )}
             </OptionsContainer>
           </ModalContent>
         </Modal>

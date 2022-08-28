@@ -8,7 +8,7 @@ interface DropdownProps {
   displayData?: DisplayDdata;
   hasCheckbox?: boolean;
   isDisabled?: boolean;
-  menuData?: any;
+  menuData: string[] | number[];
   styles?: any;
   handleSelect?: any;
   modalWidth?: string;

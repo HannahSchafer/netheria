@@ -2,7 +2,7 @@ import classNames from "classnames";
 import styled from "styled-components";
 
 interface ButtonProps {
-  children: any;
+  children: string;
   color: string;
   padding?: string;
   isActive: boolean;

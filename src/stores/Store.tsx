@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useEffect, useReducer } from "react";
+import { IHardwareTarget } from "../types/types";
 
 const NEW_SELECTION = {
   provider: "Select Provider",
@@ -108,9 +109,12 @@ type ContextStore = {
       index: number,
       selectionIndex: number
     ) => void;
-    setAggregateHardwareTargetData: (prevTarget: any, newTarget?: any) => void;
-    removeAggregateTarget: (prevTarget: any) => void;
-    addAggregateTarget: (newTarget: any) => void;
+    setAggregateHardwareTargetData: (
+      prevTarget: IHardwareTarget,
+      newTarget?: IHardwareTarget | null
+    ) => void;
+    removeAggregateTarget: (prevTarget: IHardwareTarget) => void;
+    addAggregateTarget: (newTarget: IHardwareTarget) => void;
     setTotalRuns: (totalRuns: number) => void;
   };
 };

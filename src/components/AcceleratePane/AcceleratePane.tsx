@@ -5,6 +5,7 @@ import Dropdown from "../Dropdown/Dropdown";
 import Overlay from "../Overlay/Overlay";
 import PaneHeader from "../PaneHeader/PaneHeader";
 import { OptionSpacing, Rule } from "../../styles/shared";
+import { Engine } from "../../types/types";
 
 import styled from "styled-components";
 import useClickOutside from "../../hooks/useClickOutside";
@@ -37,7 +38,7 @@ export function AcceleratePane() {
   const wrapperRef = useRef<HTMLDivElement>(null);
   useClickOutside(wrapperRef, setIsOpen);
 
-  const handleSelectEngine = (selection: any, index: number) => {
+  const handleSelectEngine = (selection: Engine) => {
     setAllData(selection, "accelerateSelection");
     setCanSave(true);
   };
@@ -67,7 +68,7 @@ export function AcceleratePane() {
             <PaneHeader options={ACCELERATE_OPTS} title="accelerateTitle" />
             <Rule />
             <OptionsContainer>
-              <OptionSpacing>
+              <OptionSpacing paddingBottom="0px">
                 <Dropdown
                   displayData={{ title: `${accelerateSelection}` }}
                   handleSelect={handleSelectEngine}

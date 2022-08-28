@@ -7,13 +7,15 @@ export const Rule = styled.div`
 `;
 
 export const OptionSpacing = styled.div.attrs(
-  (props: { width: string }) => props
+  (props: { paddingBottom?: string; width: string }) => props
 )`
   margin-left: 8px;
+  padding-bottom: ${(props) =>
+    props.paddingBottom ? props.paddingBottom : "16px"};
   width: ${(props) => (props.width ? props.width : "30%")};
   cursor: pointer;
-
+s
   &.is-active {
-    color: black;
+    color: black;ss
   }
 `;
