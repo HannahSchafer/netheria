@@ -109,6 +109,8 @@ type ContextStore = {
       selectionIndex: number
     ) => void;
     setAggregateHardwareTargetData: (prevTarget: any, newTarget?: any) => void;
+    removeAggregateTarget: (prevTarget: any) => void;
+    addAggregateTarget: (newTarget: any) => void;
     setTotalRuns: (totalRuns: number) => void;
   };
 };
@@ -207,12 +209,19 @@ export function StoreContextProvider({
         if (prevTarget.instance === newTarget?.instance) {
           return;
         }
-        // let instanceAggregate;
+        store.actions.removeAggregateTarget(prevTarget);
+
+        if (!newTarget) {
+          return;
+        }
+        store.actions.addAggregateTarget(newTarget);
+      },
+      removeAggregateTarget: (prevTarget: any) => {
+        let aggregates = {};
         let prevInstanceAggregate =
           state.aggregateHardwareTargets[prevTarget.instance];
-        // update existing value
+
         if (prevTarget.instance in state.aggregateHardwareTargets) {
-          // if prev instance count is > 1, decrease count by 1, and remultiply values,
           if (prevInstanceAggregate.count > 1) {
             const multiplier = prevInstanceAggregate.count - 1;
             prevInstanceAggregate = {
@@ -225,29 +234,22 @@ export function StoreContextProvider({
             const aggregatesCopy = state.aggregateHardwareTargets;
             aggregatesCopy[prevInstanceAggregate.instance] =
               prevInstanceAggregate;
-            dispatch({
-              type: ActionTypes.SET_AGGREGATE_HARDWARE_TARGETS,
-              payload: aggregatesCopy,
-            });
-            const newTotalRuns = (state.totalRuns -= 1);
-            store.actions.setTotalRuns(newTotalRuns);
+            aggregates = aggregatesCopy;
           } else {
-            // if prev instance count is 1, remove instance
             const aggregatesCopy = state.aggregateHardwareTargets;
             delete aggregatesCopy[prevInstanceAggregate.instance];
-            dispatch({
-              type: ActionTypes.SET_AGGREGATE_HARDWARE_TARGETS,
-              payload: aggregatesCopy,
-            });
-            const newTotalRuns = (state.totalRuns -= 1);
-            store.actions.setTotalRuns(newTotalRuns);
+            aggregates = aggregatesCopy;
           }
+          dispatch({
+            type: ActionTypes.SET_AGGREGATE_HARDWARE_TARGETS,
+            payload: aggregates,
+          });
+          const newTotalRuns = (state.totalRuns -= 1);
+          store.actions.setTotalRuns(newTotalRuns);
         }
-
-        if (!newTarget) {
-          return;
-        }
-        // if new instance is in aggregae, increae count by 1, and mulittply
+      },
+      addAggregateTarget: (newTarget) => {
+        let aggregates = {};
         if (newTarget.instance in state.aggregateHardwareTargets) {
           const existingInstance =
             state.aggregateHardwareTargets[newTarget.instance];
@@ -260,23 +262,18 @@ export function StoreContextProvider({
           };
           const aggregatesCopy = state.aggregateHardwareTargets;
           aggregatesCopy[existingInstance.instance] = updatedInstanceAggregate;
-          dispatch({
-            type: ActionTypes.SET_AGGREGATE_HARDWARE_TARGETS,
-            payload: aggregatesCopy,
-          });
-          const newTotalRuns = (state.totalRuns += 1);
-          store.actions.setTotalRuns(newTotalRuns);
+          aggregates = aggregatesCopy;
         } else {
-          // if new instance is not in aggregate, add instance to aggregate
           const aggregatesCopy = state.aggregateHardwareTargets;
           aggregatesCopy[newTarget.instance] = { ...newTarget, count: 1 };
-          dispatch({
-            type: ActionTypes.SET_AGGREGATE_HARDWARE_TARGETS,
-            payload: aggregatesCopy,
-          });
-          const newTotalRuns = (state.totalRuns += 1);
-          store.actions.setTotalRuns(newTotalRuns);
+          aggregates = aggregatesCopy;
         }
+        dispatch({
+          type: ActionTypes.SET_AGGREGATE_HARDWARE_TARGETS,
+          payload: aggregates,
+        });
+        const newTotalRuns = (state.totalRuns += 1);
+        store.actions.setTotalRuns(newTotalRuns);
       },
       setTotalRuns: (totalRuns: number) => {
         dispatch({

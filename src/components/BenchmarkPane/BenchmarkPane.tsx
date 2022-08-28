@@ -6,7 +6,7 @@ import Overlay from "../Overlay/Overlay";
 import { OptionSpacing, Rule } from "../../styles/shared";
 
 import styled from "styled-components";
-import { useStoreContext } from "../../stores/Store";
+import { useStoreContext, NEW_BENCHMARK_SELECTION } from "../../stores/Store";
 import { DROPDOWN_PANES } from "../../config";
 import Modal from "../Modal/Modal";
 import PaneHeader from "../PaneHeader/PaneHeader";
@@ -43,6 +43,13 @@ export function BenchmarkPane() {
   const [canSave, setCanSave] = useState(false);
 
   const handleSelectEngine = (selection: any) => {
+    console.log("benchmarkCurrent", benchmarkCurrent);
+    console.log("benchmarkDataSelections", benchmarkDataSelections);
+    if (benchmarkCurrent.engine !== NEW_BENCHMARK_SELECTION.engine) {
+      console.log("hihi");
+      handleSelectNumTrials(0);
+      handleSelectRunsPerTrial(0);
+    }
     updateData(
       selection,
       "engine",
@@ -53,7 +60,7 @@ export function BenchmarkPane() {
     setNumTrialsOptions(trialOptions);
   };
 
-  const handleSelectNumTrials = (selection: any, index: number) => {
+  const handleSelectNumTrials = (selection: any, index?: number) => {
     updateData(
       selection,
       "numTrials",
@@ -64,7 +71,7 @@ export function BenchmarkPane() {
     setRunsPerTrialsOptions(optsArray);
   };
 
-  const handleSelectRunsPerTrial = (selection: any, index: number) => {
+  const handleSelectRunsPerTrial = (selection: any, index?: number) => {
     updateData(
       selection,
       "runsPerTrial",
