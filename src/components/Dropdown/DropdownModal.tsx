@@ -6,6 +6,7 @@ interface DropdownModalProps {
   menuData?: any;
   handleSelectMenuItem?: any;
   isOpen: boolean;
+  modalWidth?: string;
 }
 
 export function DropdownModal({
@@ -13,13 +14,14 @@ export function DropdownModal({
   handleSelectMenuItem,
   menuData,
   isOpen,
+  modalWidth,
 }: DropdownModalProps) {
   if (!isOpen || !buttonRef?.current) {
     return null;
   }
 
   return ReactDOM.createPortal(
-    <DropdownModalContainer>
+    <DropdownModalContainer style={{ width: `${modalWidth}` }}>
       {menuData?.map((menuItem: any, i: number) => {
         return (
           <MenuItem key={i} onClick={() => handleSelectMenuItem(menuItem, i)}>
@@ -34,7 +36,6 @@ export function DropdownModal({
 
 const DropdownModalContainer = styled.div`
   color: black;
-  width: 320px;
   background-color: white;
   position: absolute;
   box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1),

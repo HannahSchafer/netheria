@@ -93,6 +93,7 @@ export function BenchmarkPane() {
                       displayData={{ title: `${benchmark.engine}` }}
                       handleSelect={handleSelectEngine}
                       menuData={engineTypes}
+                      modalWidth={"29%"}
                     />
                   </Spacing>
                   <Spacing>
@@ -100,6 +101,7 @@ export function BenchmarkPane() {
                       displayData={{ title: `${benchmark.numTrials}` }}
                       handleSelect={handleSelectNumTrials}
                       menuData={numTrialsOptions}
+                      modalWidth={"29%"}
                     />
                   </Spacing>
                   <Spacing>
@@ -107,6 +109,7 @@ export function BenchmarkPane() {
                       displayData={{ title: `${benchmark.runsPerTrial}` }}
                       handleSelect={handleSelectRunsPerTrial}
                       menuData={runsPerTrialsOptions}
+                      modalWidth={"29%"}
                     />
                   </Spacing>
                 </OptionsInnerContainer>

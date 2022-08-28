@@ -110,6 +110,7 @@ export function HardwareTargetsPane() {
                   displayData={{ title: `${provider.provider}` }}
                   handleSelect={handleSelectProvider}
                   menuData={engineTypes}
+                  modalWidth={"18%"}
                 />
               </Spacing>
               <Spacing
@@ -121,6 +122,7 @@ export function HardwareTargetsPane() {
                   displayData={{ title: `${provider.instance}` }}
                   handleSelect={handleSelectInstance}
                   menuData={instanceOptions}
+                  modalWidth={"18%"}
                   isDisabled={!instanceOptions}
                 />
               </Spacing>

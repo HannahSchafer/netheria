@@ -10,9 +10,11 @@ interface DropdownProps {
   menuData?: any;
   styles?: any;
   handleSelect?: any;
+  modalWidth?: string;
 }
 
 export function Dropdown({
+  modalWidth,
   displayData,
   handleSelect,
   hasCheckbox,
@@ -50,6 +52,7 @@ export function Dropdown({
         handleSelectMenuItem={handleSelectMenuItem}
         isOpen={isOpen}
         menuData={menuData}
+        modalWidth={modalWidth}
       />
     </DropdownContainer>
   );

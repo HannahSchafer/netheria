@@ -55,6 +55,7 @@ const PanesContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
+  paddding-bottom: 48px;
   width: 100%;
 
   @media (max-width: 850px) {
