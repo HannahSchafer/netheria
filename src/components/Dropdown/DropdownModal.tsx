@@ -21,7 +21,10 @@ export function DropdownModal({
   }
 
   return ReactDOM.createPortal(
-    <DropdownModalContainer style={{ width: `${modalWidth}` }}>
+    <DropdownModalContainer
+      aria-label="dropdown-modal"
+      style={{ width: `${modalWidth}` }}
+    >
       {menuData?.map((menuItem: any, i: number) => {
         return (
           <MenuItem key={i} onClick={() => handleSelectMenuItem(menuItem, i)}>

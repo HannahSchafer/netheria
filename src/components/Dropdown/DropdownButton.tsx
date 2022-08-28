@@ -21,6 +21,7 @@ export function DropdownButton({
 }: DropdownButtonProps) {
   return (
     <DropdownButtonContainer
+      aria-label="dropdown-button"
       className={classNames({ "is-disabled": isDisabled })}
       onClick={() => toggleDropdown()}
     >

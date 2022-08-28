@@ -72,7 +72,7 @@ export function BenchmarkPane() {
   };
 
   return (
-    <div>
+    <div aria-label="benchmark-pane">
       <DropdownButton
         displayData={DROPDOWN_PANES[0]}
         hasCheckbox

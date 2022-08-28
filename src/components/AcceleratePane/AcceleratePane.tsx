@@ -34,7 +34,7 @@ export function AcceleratePane() {
   };
 
   return (
-    <div>
+    <div aria-label="accelerate-pane">
       <DropdownButton
         displayData={DROPDOWN_PANES[1]}
         hasCheckbox

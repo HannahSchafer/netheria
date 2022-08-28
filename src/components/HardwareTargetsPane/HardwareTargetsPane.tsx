@@ -88,7 +88,7 @@ export function HardwareTargetsPane() {
     : null;
 
   return (
-    <div>
+    <div aria-label="harware-targets-pane">
       <PaneHeader options={TARGET_OPTS} title="hardwareTargetsTitle">
         <AddButton
           onClick={() => handleAddTarget()}

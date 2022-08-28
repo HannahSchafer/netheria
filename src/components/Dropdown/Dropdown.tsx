@@ -37,7 +37,7 @@ export function Dropdown({
   };
 
   return (
-    <DropdownContainer style={styles}>
+    <DropdownContainer aria-label="dropdown" style={styles}>
       <div ref={buttonRef}>
         <DropdownButton
           displayData={displayData}

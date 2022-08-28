@@ -9,7 +9,7 @@ interface PaneHeaderProps {
 
 export function PaneHeader({ children, options, title }: PaneHeaderProps) {
   return (
-    <PaneHeaderContainer>
+    <PaneHeaderContainer aria-label="pane-header">
       <HeaderContainer>
         <Title>{getString(`${title}`)}</Title>
         {children}

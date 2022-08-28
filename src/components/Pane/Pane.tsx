@@ -8,7 +8,11 @@ interface PaneProps {
 }
 
 export function Pane({ children, height, title, styles }: PaneProps) {
-  return <StyledPane style={styles}>{children}</StyledPane>;
+  return (
+    <StyledPane aria-label="pane" style={styles}>
+      {children}
+    </StyledPane>
+  );
 }
 
 const StyledPane = styled.div`

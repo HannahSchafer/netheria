@@ -24,6 +24,7 @@ export function RemoveButton({
 
   return (
     <RemoveButtonContainer
+      aria-label="remove-button"
       onClick={() => handleClickRemove(index)}
       className={classNames({
         "is-active": isActive,

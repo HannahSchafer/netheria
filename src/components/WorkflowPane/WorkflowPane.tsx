@@ -13,7 +13,7 @@ export function WorkflowPane({}: WorkflowPaneProps) {
     state: { allData },
   } = useStoreContext();
   return (
-    <WorkflowPaneContainer>
+    <WorkflowPaneContainer aria-label="workflow-pane">
       <Pane>
         <PanesContainer>
           <Title>{getString("octomize")}</Title>
