@@ -30,8 +30,6 @@ export function AcceleratePane() {
     actions: { setAllData },
   } = useStoreContext();
 
-  console.log("accelerateSelection", accelerateSelection);
-
   const [isOpen, setIsOpen] = useState(false);
   const [canSave, setCanSave] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
