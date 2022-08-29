@@ -22,14 +22,14 @@
 
 ## Future Functionality
 
-Given more time, these are some of the features and fixes I'd like to tackle:
+V2:
 
-* Add caching - I would need to know more about how often these kinds of data change to decide which data to add to a caching layer
+* Add caching
 * Separate out base components (i.e. Dropdown, Button, etc..) into separate design system library or module
 * Add key commands / tabbing for Dropdown menu
 * Add Storybooks
-* Work with designer to fully flesh out mobile design
-* Work with designer to meet accessibility standards (note: I used a higher hex code for the disabled button text color than in the mock up, to increase the contrast ratio)
+* Fully flesh out mobile design
+* meet accessibility standards
 * Increase test coverage
 * General CSS cleanup (i.e. auto-calculate Overlay height for window scrolling, increase padding right on chevron up / down in Accelerate and Benchmark, etc)
 
@@ -38,6 +38,7 @@ Given more time, these are some of the features and fixes I'd like to tackle:
 
 #### Tooltip for disable Octomize
 <img width="1440" alt="Screen Shot 2022-08-29 at 5 07 02 PM" src="https://user-images.githubusercontent.com/13912119/187233921-4ca4a125-c1ae-4992-841a-cf2134bb75c6.png">
+
 #### Button hover
 <img width="1440" alt="Screen Shot 2022-08-29 at 5 07 16 PM" src="https://user-images.githubusercontent.com/13912119/187233915-daa9c538-76b5-4cb5-9e86-74b16978bccc.png">
 
