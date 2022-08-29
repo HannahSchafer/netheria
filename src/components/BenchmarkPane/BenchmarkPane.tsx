@@ -121,6 +121,7 @@ export function BenchmarkPane() {
             <PaneHeader options={BENCHMARK_OPTS} title="benchmarkTitle" />
             <Rule />
             {benchmarkDataSelections.map((benchmark: IBenchmark, i: number) => {
+              const runsPerTrialTitle = runsPerTrial ?? benchmark.runsPerTrial;
               return (
                 <OptionsInnerContainer key={i}>
                   <OptionSpacing width={OPTION_SPACE_WIDTH}>
@@ -147,7 +148,7 @@ export function BenchmarkPane() {
                   </OptionSpacing>
                   <OptionSpacing width={OPTION_SPACE_WIDTH}>
                     <Dropdown
-                      displayData={{ title: `${benchmark.runsPerTrial}` }}
+                      displayData={{ title: `${runsPerTrialTitle}` }}
                       handleSelect={handleSelectRunsPerTrial}
                       isDisabled={
                         benchmarkDataSelections[i].numTrials ===
