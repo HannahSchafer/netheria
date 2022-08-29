@@ -5,6 +5,7 @@ import Dropdown from "../Dropdown/Dropdown";
 import Overlay from "../Overlay/Overlay";
 import PaneHeader from "../PaneHeader/PaneHeader";
 import { OptionSpacing, Rule } from "../../styles/shared";
+import { NEW_ACCELERATE_SELECTION } from "../../configs/config";
 import { COLORS } from "../../styles/colors";
 import { Engine } from "../../types/types";
 
@@ -51,6 +52,14 @@ export function AcceleratePane() {
     setIsChecked(true);
   };
 
+  const handleCheckmark = () => {
+    if (isChecked === true) {
+      setAllData(NEW_ACCELERATE_SELECTION, "accelerateSelection");
+      setIsChecked(false);
+      setIsOpen(false);
+    }
+  };
+
   return (
     <div aria-label="accelerate-pane">
       <Overlay isOpen={isOpen} />
@@ -61,7 +70,7 @@ export function AcceleratePane() {
           toggleDropdown={toggleDropdown}
           isOpen={isOpen}
           isChecked={isChecked}
-          setIsChecked={setIsChecked}
+          handleCheckmark={handleCheckmark}
         />
         <Modal isOpen={isOpen} styles={{ width: "63.5%" }}>
           <ModalContent>

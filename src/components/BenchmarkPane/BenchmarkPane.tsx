@@ -35,7 +35,7 @@ export function BenchmarkPane() {
     state: {
       allData: { benchmarkCurrent, benchmarkData, benchmarkDataSelections },
     },
-    actions: { updateData },
+    actions: { setAllData, updateData },
   } = useStoreContext();
 
   const [numTrialsOptions, setNumTrialsOptions] = useState([]);
@@ -95,6 +95,15 @@ export function BenchmarkPane() {
     setIsChecked(true);
   };
 
+  const handleCheckmark = () => {
+    if (isChecked === true) {
+      setAllData(NEW_BENCHMARK_SELECTION, "benchmarkCurrent");
+      setAllData([NEW_BENCHMARK_SELECTION], "benchmarkDataSelections");
+      setIsChecked(false);
+      setIsOpen(false);
+    }
+  };
+
   return (
     <div aria-label="benchmark-pane">
       <Overlay isOpen={isOpen} />
@@ -105,7 +114,7 @@ export function BenchmarkPane() {
           toggleDropdown={toggleDropdown}
           isOpen={isOpen}
           isChecked={isChecked}
-          setIsChecked={setIsChecked}
+          handleCheckmark={handleCheckmark}
         />
         <Modal isOpen={isOpen} styles={{ width: "63.5%" }}>
           <ModalContent>

@@ -8,26 +8,24 @@ import classNames from "classnames";
 interface DropdownButtonProps {
   displayData?: DisplayDdata;
   hasCheckbox?: boolean;
+  handleCheckmark?: () => void;
   isChecked?: boolean;
   isOpen: boolean;
   isDisabled?: boolean;
-  setIsChecked?: (isChecked: boolean) => void;
   toggleDropdown: () => void;
 }
 
 export function DropdownButton({
   displayData,
   hasCheckbox,
+  handleCheckmark,
   isChecked,
   isOpen,
   isDisabled,
-  setIsChecked,
   toggleDropdown,
 }: DropdownButtonProps) {
   const handleClickCheckmark = (event: any) => {
-    if (isChecked && setIsChecked) {
-      setIsChecked(false);
-    }
+    handleCheckmark?.();
     event.stopPropagation();
   };
 
