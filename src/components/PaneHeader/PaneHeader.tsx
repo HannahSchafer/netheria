@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import getString from "../../utils/getString";
 import { IPaneHeaderOption } from "../../types/types";
+import { COLORS } from "../../styles/colors";
 
 interface PaneHeaderProps {
   options: IPaneHeaderOption[];
@@ -37,7 +38,7 @@ const HeaderContainer = styled.div`
 `;
 
 const OptionHeadings = styled.div`
-  color: #7b818a;
+  color: ${COLORS.gray500};
   display: flex;
   flex-direction: row;
 `;
@@ -47,7 +48,7 @@ const OptionHeading = styled.div`
 `;
 
 const Title = styled.div`
-  color: #7b818a;
+  color: ${COLORS.gray500};
   font-weight: 500;
   font-size: 16px;
   line-height: 24px;

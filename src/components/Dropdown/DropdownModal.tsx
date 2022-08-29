@@ -1,5 +1,6 @@
 import ReactDOM from "react-dom";
 import styled from "styled-components";
+import { COLORS } from "../../styles/colors";
 
 interface DropdownModalProps {
   buttonRef: any;
@@ -61,8 +62,8 @@ export function DropdownModal({
 const DropdownModalContainer: any = styled.div.attrs(
   (props: { bottom?: string }) => props
 )`
-  color: black;
-  background-color: white;
+  color: ${COLORS.black};
+  background-color: ${COLORS.white};
   position: absolute;
   box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1),
     0px 4px 6px -2px rgba(0, 0, 0, 0.05), 0px 0px 0px 1px rgba(0, 0, 0, 0.05);
@@ -74,7 +75,7 @@ const MenuItem = styled.div`
   cursor: pointer;
   padding: 12px;
   &:hover {
-    background-color: #f3f3f3;
+    background-color: ${COLORS.gray100};
   }
 `;
 

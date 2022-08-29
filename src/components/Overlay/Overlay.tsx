@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import styled from "styled-components";
+import { COLORS } from "../../styles/colors";
 
 interface OverlayProps {
   isOpen: boolean;
@@ -18,7 +19,7 @@ export function Overlay({ isOpen }: OverlayProps) {
 }
 const OverlayContainer = styled.div`
   &.is-active {
-    background: gray;
+    background: ${COLORS.gray400};
     bottom: 0;
     left: 0;
     right: 0;

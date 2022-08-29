@@ -1,7 +1,8 @@
 import { Icon } from "semantic-ui-react";
+import { DisplayDdata } from "../../types/types";
+import { COLORS } from "../../styles/colors";
 import styled from "styled-components";
 import classNames from "classnames";
-import { DisplayDdata } from "../../types/types";
 
 interface DropdownButtonProps {
   displayData?: DisplayDdata;
@@ -9,6 +10,7 @@ interface DropdownButtonProps {
   isChecked?: boolean;
   isOpen: boolean;
   isDisabled?: boolean;
+  setIsChecked?: (isChecked: boolean) => void;
   toggleDropdown: () => void;
 }
 
@@ -18,9 +20,13 @@ export function DropdownButton({
   isChecked,
   isOpen,
   isDisabled,
+  setIsChecked,
   toggleDropdown,
 }: DropdownButtonProps) {
   const handleClickCheckmark = (event: any) => {
+    if (isChecked && setIsChecked) {
+      setIsChecked(false);
+    }
     event.stopPropagation();
   };
 
@@ -30,15 +36,9 @@ export function DropdownButton({
       className={classNames({ "is-disabled": isDisabled })}
       onClick={() => toggleDropdown()}
     >
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
+      <DropdownButtonInnerContainer>
         <div>
-          <div style={{ display: "flex", alignItems: "center" }}>
+          <LeftInnerContainer>
             {hasCheckbox && (
               <Checkbox>
                 <input
@@ -52,12 +52,12 @@ export function DropdownButton({
               <div>{displayData?.title}</div>
               <div>{displayData?.description}</div>
             </div>
-          </div>
+          </LeftInnerContainer>
         </div>
         <div>
           {isOpen ? <Icon name="chevron up" /> : <Icon name="chevron down" />}
         </div>
-      </div>
+      </DropdownButtonInnerContainer>
     </DropdownButtonContainer>
   );
 }
@@ -67,15 +67,27 @@ const Checkbox = styled.div`
 `;
 
 const DropdownButtonContainer = styled.div`
-  cursor: pointer;
-  border: 1px solid #d1d5db;
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+  border: 1px solid ${COLORS.gray300};
   border-radius: 6px;
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
   padding: 8px;
 
   &.is-disabled {
+    color: ${COLORS.gray400};
     cursor: not-allowed;
   }
+`;
+
+const DropdownButtonInnerContainer = styled.div`
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const LeftInnerContainer = styled.div`
+  align-items: center;
+  display: flex;
 `;
 
 export default DropdownButton;

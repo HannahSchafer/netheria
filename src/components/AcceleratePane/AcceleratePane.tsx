@@ -5,6 +5,7 @@ import Dropdown from "../Dropdown/Dropdown";
 import Overlay from "../Overlay/Overlay";
 import PaneHeader from "../PaneHeader/PaneHeader";
 import { OptionSpacing, Rule } from "../../styles/shared";
+import { COLORS } from "../../styles/colors";
 import { Engine } from "../../types/types";
 
 import styled from "styled-components";
@@ -77,7 +78,11 @@ export function AcceleratePane() {
                   stopPropagation
                 />
               </OptionSpacing>
-              <Button color={"#0180ff"} onClick={handleSave} isActive={canSave}>
+              <Button
+                color={COLORS.primary500}
+                onClick={handleSave}
+                isActive={canSave}
+              >
                 Save
               </Button>
             </OptionsContainer>
@@ -93,7 +98,6 @@ const ModalContent = styled.div`
 `;
 
 const OptionsContainer = styled.div`
-  color: #7b818a;
   display: flex;
   justify-content: space-between;
 `;

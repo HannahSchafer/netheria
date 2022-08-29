@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { COLORS } from "./colors";
 
 export const Rule = styled.div`
   border-bottom: 1px solid #e0e0e0;
@@ -16,6 +17,6 @@ export const OptionSpacing: any = styled.div.attrs(
   width: ${(props) => (props.width ? props.width : "30%")};
 
   &.is-active {
-    color: black;ss
+    color: ${COLORS.black};
   }
 `;

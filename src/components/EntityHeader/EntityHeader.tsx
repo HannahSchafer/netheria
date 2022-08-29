@@ -2,6 +2,7 @@ import getString from "../../utils/getString";
 import moment from "moment";
 import styled from "styled-components";
 import { useStoreContext } from "../../stores/Store";
+import { COLORS } from "../../styles/colors";
 
 interface EntityHeaderProps {}
 
@@ -31,7 +32,7 @@ const Title = styled.div`
   font-weight: 300;
   font-size: 36px;
   line-height: 40px;
-  color: #555b62;
+  color: ${COLORS.gray400};
 `;
 
 const EntityInfo = styled.div`
@@ -39,7 +40,7 @@ const EntityInfo = styled.div`
   font-weight: 500;
   font-size: 14px;
   line-height: 20px;
-  color: #555b62;
+  color: ${COLORS.gray400};
 `;
 
 export default EntityHeader;

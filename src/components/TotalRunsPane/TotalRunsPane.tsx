@@ -3,7 +3,7 @@ import getString from "../../utils/getString";
 import { useStoreContext } from "../../stores/Store";
 import styled from "styled-components";
 import classNames from "classnames";
-import { IHardwareTarget } from "../../types/types";
+import { COLORS } from "../../styles/colors";
 
 interface TotalRunsPaneProps {}
 
@@ -20,7 +20,7 @@ export function TotalRunsPane({}: TotalRunsPaneProps) {
   return (
     <TotalRunsContainer aria-label="total-runs-pane">
       <Pane styles={{ padding: "24px" }}>
-        <div style={{ display: "block" }}>
+        <PaneInnerContainer>
           <HeaderContainer>
             <Title>{getString("totalRuns")}</Title>
             <Aggregate>{totalRuns}</Aggregate>
@@ -45,14 +45,14 @@ export function TotalRunsPane({}: TotalRunsPaneProps) {
           >
             {getString("octomize")}
           </OctomizeButton>
-        </div>
+        </PaneInnerContainer>
       </Pane>
     </TotalRunsContainer>
   );
 }
 
 const Aggregate = styled.div`
-  color: #4db296;
+  color: ${COLORS.success500};
   display: flex;
   font-weight: 600;
   font-size: 32px;
@@ -61,8 +61,8 @@ const Aggregate = styled.div`
 `;
 
 const OctomizeButton = styled.div`
-  color: #adafb3;
-  background-color: #d0d1d2;
+  color: ${COLORS.gray600};
+  background-color: ${COLORS.gray200};
   border-radius: 4px;
   box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
   display: flex;
@@ -73,8 +73,8 @@ const OctomizeButton = styled.div`
   cursor: not-allowed;
 
   &.is-active {
-    background-color: #0180ff;
-    color: white;
+    background-color: ${COLORS.primary500};
+    color: ${COLORS.white};
     cursor: pointer;
   }
 `;
@@ -96,25 +96,29 @@ const InstanceType = styled.div`
   font-weight: 700;
   font-size: 16px;
   line-height: 20px;
-  color: #2e3238;
+  color: ${COLORS.gray900};
 `;
 
 const InstanceCores = styled.div`
   font-weight: 500;
   font-size: 12px;
   line-height: 16px;
-  color: #91969c;
+  color: ${COLORS.gray450};
 `;
 
 const InstanceRuns = styled.div`
   font-weight: 500;
   font-size: 16px;
   line-height: 24px;
-  color: #4db396;
+  color: ${COLORS.success500};
+`;
+
+const PaneInnerContainer = styled.div`
+  display: block;
 `;
 
 const Title = styled.div`
-  color: #7b818a;
+  color: #${COLORS.gray500};
   font-weight: 700;
   font-size: 12px;
   line-height: 15px;

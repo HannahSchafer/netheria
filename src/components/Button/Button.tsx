@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import styled from "styled-components";
+import { COLORS } from "../../styles/colors";
 
 interface ButtonProps {
   children: string;
@@ -34,8 +35,8 @@ export function Button({
 const ButtonContainer = styled.div.attrs(
   (props: { color: string; padding: string }) => props
 )`
-  color: white;
-  background-color: #7b818a;
+  background-color: ${COLORS.gray200};
+  color: ${COLORS.gray600};
   border-radius: 4px;
   box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
   display: flex;
@@ -47,6 +48,7 @@ const ButtonContainer = styled.div.attrs(
 
   &.is-active {
     background-color: ${(props) => props.color};
+    color: ${COLORS.white};
     cursor: pointer;
   }
 `;

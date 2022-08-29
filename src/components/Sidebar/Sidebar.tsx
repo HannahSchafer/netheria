@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import icons from "../../assets";
+import { COLORS } from "../../styles/colors";
 
 export function Sidebar() {
   return (
@@ -7,7 +8,7 @@ export function Sidebar() {
       <Icons>
         {icons.map((icon, i) => {
           return (
-            <Icon className="icon" key={i} style={{}}>
+            <Icon className="icon" key={i}>
               <img className="img" src={icon}></img>
             </Icon>
           );
@@ -23,7 +24,7 @@ const Icon = styled.div`
     padding: 10px;
 
     &:hover {
-      background-color: #f3f3f3;
+      background-color: ${COLORS.gray100};
     }
   }
 `;
@@ -63,6 +64,6 @@ const SidebarContainer = styled.div`
   width: 64px;
   height: 100%;
   padding: 12px;
-  background-color: white;
+  background-color: ${COLORS.white};
 `;
 export default Sidebar;

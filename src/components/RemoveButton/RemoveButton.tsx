@@ -2,6 +2,7 @@ import styled from "styled-components";
 import classNames from "classnames";
 import close from "../../assets/close.png";
 import { useStoreContext } from "../../stores/Store";
+import { COLORS } from "../../styles/colors";
 
 interface RemoveButtonProps {
   isActive?: boolean;
@@ -41,7 +42,7 @@ const RemoveButtonContainer = styled.div`
   visibility: hidden;
 
   &:hover {
-    background-color: #f3f3f3;
+    background-color: ${COLORS.gray100};
   }
 
   &.is-active {

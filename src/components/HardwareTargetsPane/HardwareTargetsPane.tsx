@@ -5,6 +5,7 @@ import PaneHeader from "../PaneHeader/PaneHeader";
 import RemoveButton from "../RemoveButton/RemoveButton";
 import { OptionSpacing, Rule } from "../../styles/shared";
 import { Engine, IHardwareTarget } from "../../types/types";
+import { COLORS } from "../../styles/colors";
 
 import styled from "styled-components";
 import { useStoreContext } from "../../stores/Store";
@@ -118,7 +119,7 @@ export function HardwareTargetsPane() {
     <div aria-label="harware-targets-pane">
       <PaneHeader options={TARGET_OPTS} title="hardwareTargetsTitle">
         <Button
-          color={"#0180ff"}
+          color={COLORS.primary500}
           onClick={handleAddTarget}
           padding={"0 16px"}
           isActive={canAddNewTarget}
@@ -129,6 +130,8 @@ export function HardwareTargetsPane() {
       <Rule />
       <OptionsContainer>
         {hardwareTargetSelections.map((target: IHardwareTarget, i: number) => {
+          const isDisabled =
+            hardwareTargetSelections[i].provider === NEW_SELECTION.provider;
           return (
             <OptionsInnerContainer key={i}>
               <OptionSpacing className={classNames({ "is-active": true })}>
@@ -142,11 +145,7 @@ export function HardwareTargetsPane() {
                 />
               </OptionSpacing>
               <OptionSpacing
-                className={classNames({
-                  "is-active":
-                    hardwareTargetSelections[i].provider !==
-                    NEW_SELECTION.provider,
-                })}
+                className={classNames({ "is-active": !isDisabled })}
               >
                 <div onClick={() => handleUpdateInstanceOptions(i)}>
                   <Dropdown
@@ -155,29 +154,18 @@ export function HardwareTargetsPane() {
                     selectionIndex={i}
                     menuData={instanceOptions}
                     modalWidth={"18%"}
-                    isDisabled={
-                      hardwareTargetSelections[i].provider ===
-                      NEW_SELECTION.provider
-                    }
+                    isDisabled={isDisabled}
                     setBottomPosition
                   />
                 </div>
               </OptionSpacing>
               <StyledCalculations
-                className={classNames({
-                  "is-active":
-                    hardwareTargetSelections[i].provider !==
-                    NEW_SELECTION.provider,
-                })}
+                className={classNames({ "is-active": !isDisabled })}
               >
                 {target.cpu}
               </StyledCalculations>
               <StyledCalculations
-                className={classNames({
-                  "is-active":
-                    hardwareTargetSelections[i].provider !==
-                    NEW_SELECTION.provider,
-                })}
+                className={classNames({ "is-active": !isDisabled })}
               >
                 {target.memory}
               </StyledCalculations>
@@ -194,18 +182,7 @@ export function HardwareTargetsPane() {
   );
 }
 
-const StyledCalculations = styled.div`
-  width: 20%;
-  padding-left: 12px;
-  cursor: pointer;
-
-  &.is-active {
-    color: black;
-  }
-`;
-
 const OptionsContainer = styled.div`
-  color: #7b818a;
   max-height: 170px;
   overflow: auto;
   scrollbar-width: thin;
@@ -214,6 +191,17 @@ const OptionsContainer = styled.div`
 const OptionsInnerContainer = styled.div`
   display: flex;
   align-items: baseline;
+`;
+
+const StyledCalculations = styled.div`
+  width: 20%;
+  padding-left: 12px;
+  cursor: pointer;
+  color: ${COLORS.gray400};
+
+  &.is-active {
+    color: ${COLORS.gray900};
+  }
 `;
 
 export default HardwareTargetsPane;
