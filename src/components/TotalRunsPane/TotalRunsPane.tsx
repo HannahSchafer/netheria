@@ -4,6 +4,7 @@ import { useStoreContext } from "../../stores/Store";
 import styled from "styled-components";
 import classNames from "classnames";
 import { COLORS } from "../../styles/colors";
+import Tooltip, { TooltipProps, tooltipClasses } from "@mui/material/Tooltip";
 
 interface TotalRunsPaneProps {}
 
@@ -21,10 +22,10 @@ export function TotalRunsPane({}: TotalRunsPaneProps) {
     <TotalRunsContainer aria-label="total-runs-pane">
       <Pane styles={{ padding: "24px" }}>
         <PaneInnerContainer>
-          <HeaderContainer>
+          <div>
             <Title>{getString("totalRuns")}</Title>
             <Aggregate>{totalRuns}</Aggregate>
-          </HeaderContainer>
+          </div>
           {aggregates?.map((target: any, i: number) => {
             return (
               <InstanceContainer key={i}>
@@ -36,15 +37,17 @@ export function TotalRunsPane({}: TotalRunsPaneProps) {
               </InstanceContainer>
             );
           })}
-          <OctomizeButton
-            onClick={() => handleOctomize()}
-            role="button"
-            className={classNames({
-              "is-active": aggregates.length > 0,
-            })}
-          >
-            {getString("octomize")}
-          </OctomizeButton>
+          <StyledTooltip arrow title={getString("octomizeTooltip")}>
+            <OctomizeButton
+              onClick={() => handleOctomize()}
+              role="button"
+              className={classNames({
+                "is-active": aggregates.length > 0,
+              })}
+            >
+              {getString("octomize")}
+            </OctomizeButton>
+          </StyledTooltip>
         </PaneInnerContainer>
       </Pane>
     </TotalRunsContainer>
@@ -79,7 +82,19 @@ const OctomizeButton = styled.div`
   }
 `;
 
-const HeaderContainer = styled.div``;
+const StyledTooltip = styled(({ className, ...props }: TooltipProps) => (
+  <Tooltip {...props} arrow classes={{ popper: className }} />
+))(({}) => ({
+  [`& .${tooltipClasses.arrow}`]: {
+    color: COLORS.gray600,
+  },
+  [`& .${tooltipClasses.tooltip}`]: {
+    backgroundColor: COLORS.gray600,
+    width: "200px",
+    fontSize: "12px",
+    fontFamily: "sans-serif",
+  },
+}));
 
 const InstanceContainer = styled.div`
   display: flex;

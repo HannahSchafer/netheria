@@ -55,9 +55,9 @@ export function DropdownButton({
             </div>
           </LeftInnerContainer>
         </div>
-        <div>
+        <IconContainer>
           {isOpen ? <Icon>expand_less</Icon> : <Icon>expand_more</Icon>}
-        </div>
+        </IconContainer>
       </DropdownButtonInnerContainer>
     </DropdownButtonContainer>
   );
@@ -84,6 +84,11 @@ const DropdownButtonInnerContainer = styled.div`
   align-items: center;
   display: flex;
   justify-content: space-between;
+`;
+
+const IconContainer = styled.div`
+  align-items: center;
+  display: flex;
 `;
 
 const LeftInnerContainer = styled.div`

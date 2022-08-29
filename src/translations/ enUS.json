@@ -2,6 +2,7 @@
   "accelerateTitle": "Accelerate",
   "benchmarkTitle": "Benchmark",
   "octomize": "Octomize",
+  "octomizeTooltip": "At least 1 Hardware Target, and either Accelerate or Benchmark must be selected to Octomize",
   "hardwareTargetsTitle": "Hardware Targets",
   "totalRuns": "Total Runs",
   "created": "Created",

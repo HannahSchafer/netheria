@@ -63,6 +63,7 @@ export function AcceleratePane() {
           toggleDropdown={toggleDropdown}
           isOpen={isOpen}
           isChecked={isChecked}
+          setIsChecked={setIsChecked}
         />
         <Modal isOpen={isOpen} styles={{ width: "63.5%" }}>
           <ModalContent>
