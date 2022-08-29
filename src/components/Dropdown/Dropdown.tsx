@@ -11,6 +11,7 @@ interface DropdownProps {
   menuData: string[] | number[];
   handleSelect?: any;
   modalWidth?: string;
+  setBottomPosition?: boolean;
   stopPropagation?: boolean;
   selectionIndex?: number;
 }
@@ -22,6 +23,7 @@ export function Dropdown({
   hasCheckbox,
   isDisabled,
   menuData,
+  setBottomPosition,
   stopPropagation,
   selectionIndex,
 }: DropdownProps) {
@@ -65,6 +67,7 @@ export function Dropdown({
         isOpen={isOpen}
         menuData={menuData}
         modalWidth={modalWidth}
+        setBottomPosition={setBottomPosition}
       />
     </div>
   );

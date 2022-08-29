@@ -106,7 +106,7 @@ export function HardwareTargetsPane() {
     const selectedTargetProvider = selectedTarget.provider;
     const instanceOptionsForProvider =
       hardwareTargetApiData[selectedTargetProvider];
-    const instanceOpts = instanceOptionsForProvider.map(function (item: {
+    const instanceOpts = instanceOptionsForProvider?.map(function (item: {
       [x: string]: any;
     }) {
       return item["instance"];
@@ -138,6 +138,7 @@ export function HardwareTargetsPane() {
                   selectionIndex={i}
                   menuData={engineTypes}
                   modalWidth={"18%"}
+                  setBottomPosition
                 />
               </OptionSpacing>
               <OptionSpacing
@@ -158,6 +159,7 @@ export function HardwareTargetsPane() {
                       hardwareTargetSelections[i].provider ===
                       NEW_SELECTION.provider
                     }
+                    setBottomPosition
                   />
                 </div>
               </OptionSpacing>
