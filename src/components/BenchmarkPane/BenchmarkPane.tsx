@@ -72,12 +72,6 @@ export function BenchmarkPane() {
   };
 
   const handleSelectRunsPerTrial = (selection: number) => {
-    updateData(
-      selection,
-      "runsPerTrial",
-      "benchmarkCurrent",
-      "benchmarkDataSelections"
-    );
     setRunsPerTrial(selection);
     setCanSave(true);
   };

@@ -30,6 +30,8 @@ export function AcceleratePane() {
     actions: { setAllData },
   } = useStoreContext();
 
+  console.log("accelerateSelection", accelerateSelection);
+
   const [isOpen, setIsOpen] = useState(false);
   const [canSave, setCanSave] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
@@ -60,6 +62,8 @@ export function AcceleratePane() {
     }
   };
 
+  const displayTitle = engine ?? accelerateSelection;
+
   return (
     <div aria-label="accelerate-pane" data-alt="Accelerate Pane">
       <Overlay isOpen={isOpen} />
@@ -79,7 +83,7 @@ export function AcceleratePane() {
             <OptionsContainer>
               <OptionSpacing paddingBottom="0px">
                 <Dropdown
-                  displayData={{ title: `${accelerateSelection}` }}
+                  displayData={{ title: `${displayTitle}` }}
                   handleSelect={handleSelectEngine}
                   menuData={accelerateData}
                   modalWidth={"29%"}
