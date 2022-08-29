@@ -43,6 +43,7 @@ export function BenchmarkPane() {
   const [isChecked, setIsChecked] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [canSave, setCanSave] = useState(false);
+  const [runsPerTrial, setRunsPerTrial] = useState(0);
 
   const handleSelectEngine = (selection: Engine) => {
     if (benchmarkCurrent.engine !== NEW_BENCHMARK_SELECTION.engine) {
@@ -71,12 +72,7 @@ export function BenchmarkPane() {
   };
 
   const handleSelectRunsPerTrial = (selection: number) => {
-    updateData(
-      selection,
-      "runsPerTrial",
-      "benchmarkCurrent",
-      "benchmarkDataSelections"
-    );
+    setRunsPerTrial(selection);
     setCanSave(true);
   };
 
@@ -89,10 +85,12 @@ export function BenchmarkPane() {
   useClickOutside(wrapperRef, setIsOpen);
 
   const handleSave = () => {
-    if (benchmarkCurrent.runsPerTrial === 0) {
-      return;
-    }
-    // TODO: api call to persistently save option
+    updateData(
+      runsPerTrial,
+      "runsPerTrial",
+      "benchmarkCurrent",
+      "benchmarkDataSelections"
+    );
     setIsOpen(false);
     setIsChecked(true);
   };

@@ -32,6 +32,7 @@ export function AcceleratePane() {
   const [isOpen, setIsOpen] = useState(false);
   const [canSave, setCanSave] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
+  const [engine, setEngine] = useState<Engine>();
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -40,15 +41,12 @@ export function AcceleratePane() {
   useClickOutside(wrapperRef, setIsOpen);
 
   const handleSelectEngine = (selection: Engine) => {
-    setAllData(selection, "accelerateSelection");
+    setEngine(selection);
     setCanSave(true);
   };
 
   const handleSave = () => {
-    if (accelerateSelection === NEW_ACCELERATE_SELECTION) {
-      return;
-    }
-    // TODO: api call to persistently save option
+    setAllData(engine, "accelerateSelection");
     setIsOpen(false);
     setIsChecked(true);
   };
@@ -81,7 +79,7 @@ export function AcceleratePane() {
               </OptionSpacing>
               <Button
                 color={COLORS.primary500}
-                onClick={handleSave}
+                onClick={() => handleSave()}
                 isActive={canSave}
               >
                 Save

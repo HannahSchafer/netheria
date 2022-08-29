@@ -1,6 +1,10 @@
 import Pane from "../Pane/Pane";
 import getString from "../../utils/getString";
-import { useStoreContext } from "../../stores/Store";
+import {
+  useStoreContext,
+  NEW_ACCELERATE_SELECTION,
+  NEW_BENCHMARK_SELECTION,
+} from "../../stores/Store";
 import styled from "styled-components";
 import classNames from "classnames";
 import { COLORS } from "../../styles/colors";
@@ -10,14 +14,24 @@ interface TotalRunsPaneProps {}
 
 export function TotalRunsPane({}: TotalRunsPaneProps) {
   const {
-    state: { aggregateHardwareTargets, totalRuns },
+    state: {
+      aggregateHardwareTargets,
+      totalRuns,
+      allData: { accelerateSelection, benchmarkDataSelections },
+    },
   } = useStoreContext();
 
   const handleOctomize = () => {
-    //TODO
+    //TODO - persist to backend
   };
 
   const aggregates = Object.values(aggregateHardwareTargets);
+  const accelerateSelected = accelerateSelection !== NEW_ACCELERATE_SELECTION;
+  const benchmarkSelected =
+    benchmarkDataSelections[0].runsPerTrial !==
+    NEW_BENCHMARK_SELECTION.runsPerTrial;
+  const canOctomize =
+    aggregates.length > 0 && (accelerateSelected || benchmarkSelected);
   return (
     <TotalRunsContainer aria-label="total-runs-pane">
       <Pane styles={{ padding: "24px" }}>
@@ -42,7 +56,7 @@ export function TotalRunsPane({}: TotalRunsPaneProps) {
               onClick={() => handleOctomize()}
               role="button"
               className={classNames({
-                "is-active": aggregates.length > 0,
+                "is-active": canOctomize,
               })}
             >
               {getString("octomize")}
