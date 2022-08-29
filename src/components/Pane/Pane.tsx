@@ -9,7 +9,7 @@ interface PaneProps {
 
 export function Pane({ children, styles }: PaneProps) {
   return (
-    <StyledPane aria-label="pane" style={styles}>
+    <StyledPane aria-label="pane" data-alt="Pane" style={styles}>
       {children}
     </StyledPane>
   );

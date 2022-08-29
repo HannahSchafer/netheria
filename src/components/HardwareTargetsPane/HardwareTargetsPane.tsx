@@ -111,7 +111,7 @@ export function HardwareTargetsPane() {
   };
 
   return (
-    <div aria-label="harware-targets-pane">
+    <div aria-label="harware-targets-pane" data-alt="Hardware Targets Pane">
       <PaneHeader options={TARGET_OPTS} title="hardwareTargetsTitle">
         <Button
           color={COLORS.primary500}

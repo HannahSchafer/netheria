@@ -14,7 +14,7 @@ export function Modal({ children, isOpen, styles }: ModalProps) {
     return null;
   }
   return (
-    <ModalContainer style={styles} aria-label="modal">
+    <ModalContainer style={styles} aria-label="modal" data-alt="Modal">
       {children}
     </ModalContainer>
   );

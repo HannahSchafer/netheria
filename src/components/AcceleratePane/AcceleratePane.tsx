@@ -61,7 +61,7 @@ export function AcceleratePane() {
   };
 
   return (
-    <div aria-label="accelerate-pane">
+    <div aria-label="accelerate-pane" data-alt="Accelerate Pane">
       <Overlay isOpen={isOpen} />
       <div ref={wrapperRef}>
         <DropdownButton

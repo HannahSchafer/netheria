@@ -14,6 +14,7 @@ export function Overlay({ isOpen }: OverlayProps) {
     <OverlayContainer
       aria-label="overlay"
       className={classNames({ "is-active": isOpen })}
+      data-alt="Overlay"
     ></OverlayContainer>
   );
 }

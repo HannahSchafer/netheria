@@ -51,7 +51,7 @@ export function Dropdown({
   };
 
   return (
-    <div aria-label="dropdown" ref={wrapperRef}>
+    <div aria-label="dropdown" data-alt="Dropdown" ref={wrapperRef}>
       <div ref={buttonRef}>
         <DropdownButton
           displayData={displayData}

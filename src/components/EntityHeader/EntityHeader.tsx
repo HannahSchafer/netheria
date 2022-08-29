@@ -22,7 +22,7 @@ export function EntityHeader({}: EntityHeaderProps) {
   const formattedDate = moment(configData.entityCreatedAt).fromNow();
 
   return (
-    <StyledEntityHeader aria-label="entity-header">
+    <StyledEntityHeader aria-label="entity-header" data-alt="Entity Header">
       <Title>{configData.entityTitle}</Title>
       <EntityInfo>
         {`${created} ${formattedDate} ${by} ${configData.entityAuthor}`}

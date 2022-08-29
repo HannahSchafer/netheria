@@ -33,6 +33,7 @@ export function DropdownButton({
     <DropdownButtonContainer
       aria-label="dropdown-button"
       className={classNames({ "is-disabled": isDisabled })}
+      data-alt="Dropdown Button"
       onClick={() => toggleDropdown()}
     >
       <DropdownButtonInnerContainer>

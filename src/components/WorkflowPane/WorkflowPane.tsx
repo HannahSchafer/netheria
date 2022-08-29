@@ -9,7 +9,7 @@ interface WorkflowPaneProps {}
 
 export function WorkflowPane({}: WorkflowPaneProps) {
   return (
-    <WorkflowPaneContainer aria-label="workflow-pane">
+    <WorkflowPaneContainer aria-label="workflow-pane" data-alt="Workflow Pane">
       <Pane>
         <PanesContainer>
           <Title>{getString("octomize")}</Title>

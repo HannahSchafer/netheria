@@ -23,8 +23,9 @@ export function Button({
       className={classNames({
         "is-active": isActive,
       })}
-      onClick={() => onClick()}
       color={color}
+      data-alt="Button"
+      onClick={() => onClick()}
       padding={padding}
     >
       {children}

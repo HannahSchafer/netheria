@@ -4,7 +4,7 @@ import { COLORS } from "../../styles/colors";
 
 export function Sidebar() {
   return (
-    <SidebarContainer aria-label="sidebar">
+    <SidebarContainer aria-label="sidebar" data-alt="Sidebar">
       <Icons>
         {icons.map((icon, i) => {
           return (

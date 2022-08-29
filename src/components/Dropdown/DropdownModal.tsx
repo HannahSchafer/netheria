@@ -42,6 +42,7 @@ export function DropdownModal({
     <DropdownModalContainer
       bottom={bottomPosition}
       aria-label="dropdown-modal"
+      data-alt="Dropdown Modal"
       style={{ width: `${modalWidth}` }}
     >
       {menuData.map((menuItem: string | number, i: number) => {

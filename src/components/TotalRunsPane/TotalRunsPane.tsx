@@ -33,7 +33,7 @@ export function TotalRunsPane({}: TotalRunsPaneProps) {
   const canOctomize =
     aggregates.length > 0 && (accelerateSelected || benchmarkSelected);
   return (
-    <TotalRunsContainer aria-label="total-runs-pane">
+    <TotalRunsContainer aria-label="total-runs-pane" data-alt="Total Runs Pane">
       <Pane styles={{ padding: "24px" }}>
         <PaneInnerContainer>
           <div>

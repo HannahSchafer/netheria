@@ -111,7 +111,7 @@ export function BenchmarkPane() {
   };
 
   return (
-    <div aria-label="benchmark-pane">
+    <div aria-label="benchmark-pane" data-alt="Benchmark Pane">
       <Overlay isOpen={isOpen} />
       <div ref={wrapperRef}>
         <DropdownButton
