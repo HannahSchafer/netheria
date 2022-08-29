@@ -1,7 +1,7 @@
-import hardwareTargetsResponse from "./db/hardwareTargets.json";
-import configResponse from "./db/config.json";
-import benchmarkResponse from "./db/benchmark.json";
-import accelerateResponse from "./db/accelerate.json";
+import hardwareTargetsResponse from "../db/hardwareTargets.json";
+import configResponse from "../db/config.json";
+import benchmarkResponse from "../db/benchmark.json";
+import accelerateResponse from "../db/accelerate.json";
 
 export function getTargetData() {
   let targetMap = {} as any;

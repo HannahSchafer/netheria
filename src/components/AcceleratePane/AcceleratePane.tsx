@@ -10,13 +10,13 @@ import { Engine } from "../../types/types";
 
 import styled from "styled-components";
 import useClickOutside from "../../hooks/useClickOutside";
-import { useStoreContext, NEW_ACCELERATE_SELECTION } from "../../stores/Store";
+import { useStoreContext } from "../../stores/Store";
 import Modal from "../Modal/Modal";
 import { DROPDOWN_PANES } from "../../config";
 
 export const ACCELERATE_OPTS = [
   {
-    title: "Engine",
+    title: "ENGINE",
     styles: { width: "30%" },
   },
 ];

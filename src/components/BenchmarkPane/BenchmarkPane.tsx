@@ -17,16 +17,16 @@ import useClickOutside from "../../hooks/useClickOutside";
 const OPTION_SPACE_WIDTH = "25%";
 const BENCHMARK_OPTS = [
   {
-    title: "Engine",
+    title: "ENGINE",
     styles: { width: "30%" },
   },
   {
-    title: "Num Trials",
+    title: "NUM TRIALS",
     styles: { width: "30%" },
   },
   {
-    title: "Runs Per Trial",
-    styles: { width: "20%" },
+    title: "RUNS PER TRIAL",
+    styles: { width: "30%" },
   },
 ];
 

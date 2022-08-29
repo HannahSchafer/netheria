@@ -11,7 +11,7 @@ interface PaneHeaderProps {
 
 export function PaneHeader({ children, options, title }: PaneHeaderProps) {
   return (
-    <PaneHeaderContainer aria-label="pane-header">
+    <div aria-label="pane-header">
       <HeaderContainer>
         <Title>{getString(`${title}`)}</Title>
         {children}
@@ -25,11 +25,9 @@ export function PaneHeader({ children, options, title }: PaneHeaderProps) {
           );
         })}
       </OptionHeadings>
-    </PaneHeaderContainer>
+    </div>
   );
 }
-
-const PaneHeaderContainer = styled.div``;
 
 const HeaderContainer = styled.div`
   display: flex;
@@ -41,6 +39,8 @@ const OptionHeadings = styled.div`
   color: ${COLORS.gray500};
   display: flex;
   flex-direction: row;
+  font-size: 10px;
+  font-weight: 500;
 `;
 
 const OptionHeading = styled.div`

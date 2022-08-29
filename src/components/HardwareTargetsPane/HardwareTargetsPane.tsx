@@ -13,20 +13,20 @@ import classNames from "classnames";
 
 export const TARGET_OPTS = [
   {
-    title: "Provider",
-    styles: { width: "30%" },
+    title: "PROVIDER",
+    styles: { width: "30%", color: COLORS.primary500 },
   },
   {
-    title: "Instance",
-    styles: { width: "30%" },
+    title: "INSTANCE",
+    styles: { width: "28%" },
   },
   {
     title: "VCPU",
     styles: { width: "20%" },
   },
   {
-    title: "Memory (GIB)",
-    styles: { width: "20%" },
+    title: "MEMORY (GIB)",
+    styles: { width: "15%" },
   },
 ];
 

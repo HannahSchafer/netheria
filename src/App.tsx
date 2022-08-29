@@ -4,7 +4,7 @@ import {
   getBenchmarkData,
   getConfigData,
   getTargetData,
-} from "./Api";
+} from "./api/Api";
 import Sidebar from "./components/Sidebar/Sidebar";
 import { StoreContextProvider } from "./stores/Store";
 import TotalRunsPane from "./components/TotalRunsPane/TotalRunsPane";
