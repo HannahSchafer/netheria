@@ -12,7 +12,7 @@ import styled from "styled-components";
 import useClickOutside from "../../hooks/useClickOutside";
 import { useStoreContext } from "../../stores/Store";
 import Modal from "../Modal/Modal";
-import { DROPDOWN_PANES } from "../../config";
+import { DROPDOWN_PANES } from "../../configs/config";
 
 export const ACCELERATE_OPTS = [
   {

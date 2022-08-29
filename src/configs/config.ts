@@ -17,3 +17,17 @@ export const DROPDOWN_PANES = [
   },
 ];
 export const SIDEBAR_ICONS: string[] = ["home", "chart bar", "circle"];
+
+export const NEW_ACCELERATE_SELECTION = "Select Engine";
+
+export const NEW_BENCHMARK_SELECTION = {
+  engine: "Select Engine",
+  numTrials: 0,
+  runsPerTrial: 0,
+};
+export const NEW_HARDWARE_SELECTION = {
+  provider: "Select Provider",
+  instance: "Select Instance",
+  cpu: 0,
+  memory: 0,
+};

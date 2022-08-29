@@ -8,8 +8,8 @@ import { Engine, IBenchmark } from "../../types/types";
 import { COLORS } from "../../styles/colors";
 
 import styled from "styled-components";
-import { useStoreContext, NEW_BENCHMARK_SELECTION } from "../../stores/Store";
-import { DROPDOWN_PANES } from "../../config";
+import { useStoreContext } from "../../stores/Store";
+import { NEW_BENCHMARK_SELECTION, DROPDOWN_PANES } from "../../configs/config";
 import Modal from "../Modal/Modal";
 import PaneHeader from "../PaneHeader/PaneHeader";
 import useClickOutside from "../../hooks/useClickOutside";

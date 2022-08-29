@@ -18,7 +18,7 @@ function App() {
   const benchmarkData = getBenchmarkData();
 
   return (
-    <StyledApp>
+    <StyledApp aria-label="app">
       <Sidebar />
       <StoreContextProvider
         accelerateData={accelerateData}

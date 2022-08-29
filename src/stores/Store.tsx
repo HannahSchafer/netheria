@@ -1,20 +1,10 @@
 import React, { createContext, useContext, useEffect, useReducer } from "react";
 import { IHardwareTarget } from "../types/types";
-
-const NEW_SELECTION = {
-  provider: "Select Provider",
-  instance: "Select Instance",
-  cpu: 0,
-  memory: 0,
-};
-
-export const NEW_BENCHMARK_SELECTION = {
-  engine: "Select Engine",
-  numTrials: 0,
-  runsPerTrial: 0,
-};
-
-export const NEW_ACCELERATE_SELECTION = "Select Engine";
+import {
+  NEW_ACCELERATE_SELECTION,
+  NEW_BENCHMARK_SELECTION,
+  NEW_HARDWARE_SELECTION,
+} from "../configs/config";
 
 export enum ActionTypes {
   SET_ALL_DATA = "SET_ALL_DATA",
@@ -84,8 +74,8 @@ const defaultStoreState: StoreState = {
     benchmarkDataSelections: [NEW_BENCHMARK_SELECTION],
     configData: {},
     hardwareTargetApiData: {},
-    hardwareTargetCurrent: NEW_SELECTION,
-    hardwareTargetSelections: [NEW_SELECTION],
+    hardwareTargetCurrent: NEW_HARDWARE_SELECTION,
+    hardwareTargetSelections: [NEW_HARDWARE_SELECTION],
     aggregateHardwareTargets: {},
   },
   aggregateHardwareTargets: {},

@@ -1,10 +1,10 @@
 import Pane from "../Pane/Pane";
 import getString from "../../utils/getString";
+import { useStoreContext } from "../../stores/Store";
 import {
-  useStoreContext,
   NEW_ACCELERATE_SELECTION,
   NEW_BENCHMARK_SELECTION,
-} from "../../stores/Store";
+} from "../../configs/config";
 import styled from "styled-components";
 import classNames from "classnames";
 import { COLORS } from "../../styles/colors";

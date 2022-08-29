@@ -6,6 +6,7 @@ import RemoveButton from "../RemoveButton/RemoveButton";
 import { OptionSpacing, Rule } from "../../styles/shared";
 import { Engine, IHardwareTarget } from "../../types/types";
 import { COLORS } from "../../styles/colors";
+import { NEW_HARDWARE_SELECTION } from "../../configs/config";
 
 import styled from "styled-components";
 import { useStoreContext } from "../../stores/Store";
@@ -29,13 +30,6 @@ export const TARGET_OPTS = [
     styles: { width: "15%" },
   },
 ];
-
-const NEW_SELECTION = {
-  provider: "Select Provider",
-  instance: "Select Instance",
-  cpu: 0,
-  memory: 0,
-};
 
 export function HardwareTargetsPane() {
   const {
@@ -95,7 +89,7 @@ export function HardwareTargetsPane() {
     }
     setCanAddNewTarget(false);
     setAllData(
-      [...hardwareTargetSelections, NEW_SELECTION],
+      [...hardwareTargetSelections, NEW_HARDWARE_SELECTION],
       "hardwareTargetSelections"
     );
   };
@@ -131,7 +125,8 @@ export function HardwareTargetsPane() {
       <OptionsContainer>
         {hardwareTargetSelections.map((target: IHardwareTarget, i: number) => {
           const isDisabled =
-            hardwareTargetSelections[i].provider === NEW_SELECTION.provider;
+            hardwareTargetSelections[i].provider ===
+            NEW_HARDWARE_SELECTION.provider;
           return (
             <OptionsInnerContainer key={i}>
               <OptionSpacing className={classNames({ "is-active": true })}>
