@@ -4,9 +4,9 @@ import styled from "styled-components";
 interface ButtonProps {
   children: string;
   color: string;
-  padding?: string;
   isActive: boolean;
   onClick: () => void;
+  padding?: string;
 }
 
 export function Button({

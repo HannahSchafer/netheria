@@ -1,9 +1,11 @@
 import styled from "styled-components";
 
 interface ModalProps {
-  children?: any;
+  children?: React.ReactNode;
   isOpen: boolean;
-  styles?: any;
+  styles?: {
+    width: string;
+  };
 }
 
 export function Modal({ children, isOpen, styles }: ModalProps) {

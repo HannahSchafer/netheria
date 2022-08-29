@@ -3,6 +3,7 @@ import getString from "../../utils/getString";
 import { useStoreContext } from "../../stores/Store";
 import styled from "styled-components";
 import classNames from "classnames";
+import { IHardwareTarget } from "../../types/types";
 
 interface TotalRunsPaneProps {}
 

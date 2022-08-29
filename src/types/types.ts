@@ -21,6 +21,13 @@ export interface IBenchmark {
   runsPerTrial: number;
 }
 
+export interface IPaneHeaderOption {
+  title: string;
+  styles: {
+    width: string;
+  };
+}
+
 export enum Engine {
   "AWS",
   "GCP",

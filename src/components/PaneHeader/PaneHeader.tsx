@@ -1,10 +1,11 @@
 import styled from "styled-components";
 import getString from "../../utils/getString";
+import { IPaneHeaderOption } from "../../types/types";
 
 interface PaneHeaderProps {
-  options: any;
+  options: IPaneHeaderOption[];
   title: string;
-  children?: any;
+  children?: React.ReactNode;
 }
 
 export function PaneHeader({ children, options, title }: PaneHeaderProps) {
@@ -15,7 +16,7 @@ export function PaneHeader({ children, options, title }: PaneHeaderProps) {
         {children}
       </HeaderContainer>
       <OptionHeadings>
-        {options.map((opt: any, i: number) => {
+        {options.map((opt: IPaneHeaderOption, i: number) => {
           return (
             <OptionHeading key={i} style={opt.styles}>
               {opt.title}

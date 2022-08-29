@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { PaneStyles } from "../../types/types";
 
 interface PaneProps {
-  children?: any;
+  children: React.ReactNode;
   styles?: PaneStyles;
 }
 

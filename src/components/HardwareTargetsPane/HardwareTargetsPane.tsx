@@ -4,6 +4,7 @@ import Dropdown from "../Dropdown/Dropdown";
 import PaneHeader from "../PaneHeader/PaneHeader";
 import RemoveButton from "../RemoveButton/RemoveButton";
 import { OptionSpacing, Rule } from "../../styles/shared";
+import { Engine, IHardwareTarget } from "../../types/types";
 
 import styled from "styled-components";
 import { useStoreContext } from "../../stores/Store";
@@ -58,7 +59,7 @@ export function HardwareTargetsPane() {
   }, [hardwareTargetSelections, hardwareTargetSelections]);
 
   const handleSelectProvider = (
-    selection: any,
+    selection: Engine,
     index: number,
     selectionIndex: number
   ) => {
@@ -79,7 +80,7 @@ export function HardwareTargetsPane() {
   };
 
   const handleSelectInstance = (
-    selection: any,
+    selection: string,
     menuIndex: number,
     selectionIndex: number
   ) => {
@@ -127,12 +128,12 @@ export function HardwareTargetsPane() {
       </PaneHeader>
       <Rule />
       <OptionsContainer>
-        {hardwareTargetSelections.map((provider: any, i: number) => {
+        {hardwareTargetSelections.map((target: IHardwareTarget, i: number) => {
           return (
             <OptionsInnerContainer key={i}>
               <OptionSpacing className={classNames({ "is-active": true })}>
                 <Dropdown
-                  displayData={{ title: `${provider.provider}` }}
+                  displayData={{ title: `${target.provider}` }}
                   handleSelect={handleSelectProvider}
                   selectionIndex={i}
                   menuData={engineTypes}
@@ -148,7 +149,7 @@ export function HardwareTargetsPane() {
               >
                 <div onClick={() => handleUpdateInstanceOptions(i)}>
                   <Dropdown
-                    displayData={{ title: `${provider.instance}` }}
+                    displayData={{ title: `${target.instance}` }}
                     handleSelect={handleSelectInstance}
                     selectionIndex={i}
                     menuData={instanceOptions}
@@ -167,7 +168,7 @@ export function HardwareTargetsPane() {
                     NEW_SELECTION.provider,
                 })}
               >
-                {provider.cpu}
+                {target.cpu}
               </StyledCalculations>
               <StyledCalculations
                 className={classNames({
@@ -176,7 +177,7 @@ export function HardwareTargetsPane() {
                     NEW_SELECTION.provider,
                 })}
               >
-                {provider.memory}
+                {target.memory}
               </StyledCalculations>
               <RemoveButton
                 isActive={hardwareTargetSelections[i].memory > 0}

@@ -6,10 +6,10 @@ import { DisplayDdata } from "../../types/types";
 interface DropdownButtonProps {
   displayData?: DisplayDdata;
   hasCheckbox?: boolean;
-  toggleDropdown: () => void;
   isChecked?: boolean;
   isOpen: boolean;
   isDisabled?: boolean;
+  toggleDropdown: () => void;
 }
 
 export function DropdownButton({

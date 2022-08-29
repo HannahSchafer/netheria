@@ -18,14 +18,14 @@ export function Overlay({ isOpen }: OverlayProps) {
 }
 const OverlayContainer = styled.div`
   &.is-active {
-    position: absolute;
+    background: gray;
     bottom: 0;
-    top: 0;
     left: 0;
     right: 0;
-    width: 100%;
     opacity: 0.5;
-    background: gray;
+    position: absolute;
+    top: 0;
+    width: 100%;
   }
 `;
 

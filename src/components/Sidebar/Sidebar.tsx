@@ -19,8 +19,8 @@ export function Sidebar() {
 
 const Icon = styled.div`
   .img {
-    padding: 10px;
     border-radius: 6px;
+    padding: 10px;
 
     &:hover {
       background-color: #f3f3f3;

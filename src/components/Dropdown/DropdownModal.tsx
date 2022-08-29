@@ -3,9 +3,13 @@ import styled from "styled-components";
 
 interface DropdownModalProps {
   buttonRef: any;
-  menuData: string[] | number[];
-  handleSelectMenuItem?: any;
+  handleSelectMenuItem: (
+    e: React.SyntheticEvent,
+    menuItem: string | number,
+    index: number
+  ) => void;
   isOpen: boolean;
+  menuData: string[] | number[];
   modalWidth?: string;
 }
 

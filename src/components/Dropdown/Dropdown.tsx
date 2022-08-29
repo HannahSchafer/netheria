@@ -9,7 +9,6 @@ interface DropdownProps {
   hasCheckbox?: boolean;
   isDisabled?: boolean;
   menuData: string[] | number[];
-  styles?: any;
   handleSelect?: any;
   modalWidth?: string;
   stopPropagation?: boolean;
@@ -23,7 +22,6 @@ export function Dropdown({
   hasCheckbox,
   isDisabled,
   menuData,
-  styles,
   stopPropagation,
   selectionIndex,
 }: DropdownProps) {
@@ -52,24 +50,22 @@ export function Dropdown({
 
   return (
     <div aria-label="dropdown" ref={wrapperRef}>
-      <div style={styles}>
-        <div ref={buttonRef}>
-          <DropdownButton
-            displayData={displayData}
-            hasCheckbox={hasCheckbox}
-            isDisabled={isDisabled}
-            isOpen={isOpen}
-            toggleDropdown={toggleDropdown}
-          />
-        </div>
-        <DropdownModal
-          buttonRef={buttonRef}
-          handleSelectMenuItem={handleSelectMenuItem}
+      <div ref={buttonRef}>
+        <DropdownButton
+          displayData={displayData}
+          hasCheckbox={hasCheckbox}
+          isDisabled={isDisabled}
           isOpen={isOpen}
-          menuData={menuData}
-          modalWidth={modalWidth}
+          toggleDropdown={toggleDropdown}
         />
       </div>
+      <DropdownModal
+        buttonRef={buttonRef}
+        handleSelectMenuItem={handleSelectMenuItem}
+        isOpen={isOpen}
+        menuData={menuData}
+        modalWidth={modalWidth}
+      />
     </div>
   );
 }

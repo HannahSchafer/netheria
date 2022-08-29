@@ -3,15 +3,11 @@ import BenchmarkPane from "../BenchmarkPane/BenchmarkPane";
 import AcceleratePane from "../AcceleratePane/AcceleratePane";
 import Pane from "../Pane/Pane";
 import getString from "../../utils/getString";
-import { useStoreContext } from "../../stores/Store";
 import styled from "styled-components";
 
 interface WorkflowPaneProps {}
 
 export function WorkflowPane({}: WorkflowPaneProps) {
-  const {
-    state: { allData },
-  } = useStoreContext();
   return (
     <WorkflowPaneContainer aria-label="workflow-pane">
       <Pane>
