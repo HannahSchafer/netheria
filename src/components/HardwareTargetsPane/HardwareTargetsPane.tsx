@@ -94,7 +94,8 @@ export function HardwareTargetsPane() {
     );
   };
 
-  const engineTypes = Object.keys(hardwareTargetApiData);
+  const engineTypes =
+    hardwareTargetApiData && Object.keys(hardwareTargetApiData);
 
   const handleUpdateInstanceOptions = (selectionIndex: number) => {
     const selectedTarget = hardwareTargetSelections[selectionIndex];

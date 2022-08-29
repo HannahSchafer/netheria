@@ -76,7 +76,7 @@ export function BenchmarkPane() {
     setCanSave(true);
   };
 
-  const engineTypes = Object.keys(benchmarkData);
+  const engineTypes = benchmarkData && Object.keys(benchmarkData);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);

@@ -12,6 +12,11 @@ export function EntityHeader({}: EntityHeaderProps) {
       allData: { configData },
     },
   } = useStoreContext();
+
+  if (!configData) {
+    return null;
+  }
+
   const created = getString("created");
   const by = getString("by");
   const formattedDate = moment(configData.entityCreatedAt).fromNow();

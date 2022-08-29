@@ -1,13 +1,13 @@
 import { render, screen } from "@testing-library/react";
-import AcceleratePane from "./AcceleratePane";
+import HardwareTargetsPane from "./HardwareTargetsPane";
 import { StoreContextProvider } from "../../stores/Store";
 
-test("renders accelerate pane", () => {
+test("renders hardware targets pane", () => {
   render(
     <StoreContextProvider>
-      <AcceleratePane />
+      <HardwareTargetsPane />
     </StoreContextProvider>
   );
-  const pane = screen.getByLabelText("accelerate-pane");
+  const pane = screen.getByLabelText("harware-targets-pane");
   expect(pane).toBeInTheDocument();
 });

@@ -1,13 +1,13 @@
 import { render, screen } from "@testing-library/react";
-import AcceleratePane from "./AcceleratePane";
+import BenchmarkPane from "./BenchmarkPane";
 import { StoreContextProvider } from "../../stores/Store";
 
-test("renders accelerate pane", () => {
+test("renders benchmark pane", () => {
   render(
     <StoreContextProvider>
-      <AcceleratePane />
+      <BenchmarkPane />
     </StoreContextProvider>
   );
-  const pane = screen.getByLabelText("accelerate-pane");
+  const pane = screen.getByLabelText("benchmark-pane");
   expect(pane).toBeInTheDocument();
 });
