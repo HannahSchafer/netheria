@@ -1,4 +1,5 @@
-import { Icon } from "semantic-ui-react";
+import Icon from "@mui/material/Icon";
+
 import { DisplayDdata } from "../../types/types";
 import { COLORS } from "../../styles/colors";
 import styled from "styled-components";
@@ -55,7 +56,7 @@ export function DropdownButton({
           </LeftInnerContainer>
         </div>
         <div>
-          {isOpen ? <Icon name="chevron up" /> : <Icon name="chevron down" />}
+          {isOpen ? <Icon>expand_less</Icon> : <Icon>expand_more</Icon>}
         </div>
       </DropdownButtonInnerContainer>
     </DropdownButtonContainer>
