@@ -30,7 +30,9 @@ V2:
 * Add Storybooks
 * Fully flesh out mobile design
 * meet accessibility standards
-* Increase test coverage
+* Increase unit test coverage
+* Add E2E testing
+* Add analytics events
 * General CSS cleanup (i.e. auto-calculate Overlay height for window scrolling, increase padding right on chevron up / down in Accelerate and Benchmark, etc)
 
 
