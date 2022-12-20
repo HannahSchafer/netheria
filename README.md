@@ -20,22 +20,6 @@
 * classnames: [https://www.npmjs.com/package/classnames](classnames)
 * styled-components: [https://styled-components.com](styled-components)
 
-## Future Functionality
-
-V2:
-
-* Add caching
-* Separate out base components (i.e. Dropdown, Button, etc..) into separate design system library or module
-* Add key commands / tabbing for Dropdown menu
-* Add Storybooks
-* Fully flesh out mobile design
-* meet accessibility standards
-* Increase unit test coverage
-* Add E2E testing
-* Add analytics events
-* General CSS cleanup (i.e. auto-calculate Overlay height for window scrolling, increase padding right on chevron up / down in Accelerate and Benchmark, etc)
-
-
 ## Screenshots of Features and Functionality
 
 #### Tooltip for disable Octomize
